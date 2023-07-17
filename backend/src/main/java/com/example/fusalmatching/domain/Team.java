@@ -12,7 +12,6 @@ import java.util.Set;
 @Getter
 @ToString
 @Table(indexes = {
-        @Index(columnList = "id"),
         @Index(columnList = "teamName")
 })
 @Entity

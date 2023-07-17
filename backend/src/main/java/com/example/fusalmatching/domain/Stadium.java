@@ -11,13 +11,12 @@ import java.util.Set;
 
 @ToString
 @Getter
-@Table(indexes = @Index(columnList = "id"))
 @Entity
 public class Stadium extends AuditingFields{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @ManyToOne
     private Manager manager;

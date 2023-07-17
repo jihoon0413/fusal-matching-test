@@ -9,13 +9,12 @@ import java.util.Objects;
 
 @ToString
 @Getter
-@Table(indexes = @Index(columnList = "team_id"))
 @Entity
 public class TeamReview extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Setter
     @ManyToOne
