@@ -5,7 +5,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @ToString
 @Getter
@@ -16,12 +18,31 @@ public class Stadium extends AuditingFields{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    @ManyToOne
+    private Manager manager;
+
+
+    @OneToMany(mappedBy = "stadium")
+    private final Set<Field> fields = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "stadium")
+    private final Set<StadiumReview> stadiumReviews = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "stadium")
+    private final Set<MatchingRecord> matchingRecords = new LinkedHashSet<>();
+
+
     @Setter private String tel;
     @Setter private String time;
     @Setter private int fieldCount;
     @Setter private int evaluationCount;
     @Setter private int gpa;
     //photo
+
+
+
+
 
     protected Stadium() {}
 

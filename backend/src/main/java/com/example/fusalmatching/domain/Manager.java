@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @ToString
 @Getter
@@ -25,7 +24,12 @@ public class Manager extends AuditingFields{
 
     @Setter private String password;
 
-    private String stadium_id; //TODO 관계설정필요
+    @OneToMany(mappedBy = "manager")
+    private final Set<Stadium> stadiums = new LinkedHashSet<>();
+
+
+
+
 
     public Manager() {}
 
@@ -35,6 +39,7 @@ public class Manager extends AuditingFields{
     }
 
     public static Manager of(String id, String password) {
+
         return new Manager(id, password);
     }
 
@@ -43,11 +48,11 @@ public class Manager extends AuditingFields{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Manager manager = (Manager) o;
-        return Objects.equals(id, manager.id) && Objects.equals(password, manager.password) && Objects.equals(stadium_id, manager.stadium_id);
+        return Objects.equals(id, manager.id) && Objects.equals(password, manager.password) && Objects.equals(stadiums, manager.stadiums);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, password, stadium_id);
+        return Objects.hash(id, password, stadiums);
     }
 }
