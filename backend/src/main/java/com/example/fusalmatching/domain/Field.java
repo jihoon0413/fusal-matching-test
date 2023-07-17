@@ -11,7 +11,6 @@ import java.util.Objects;
 @ToString
 @Getter
 @Table(indexes = {
-        @Index(columnList = "stadium_id"),
         @Index(columnList = "matchingDate"),
         @Index(columnList = "startTime")
 })
@@ -20,10 +19,11 @@ public class Field {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @ManyToOne
-    private Stadium stadium; // TODO 관계설정필요
+    private Stadium stadium;
+
     private LocalDate matchingDate;
     private LocalTime startTime;
     private LocalTime endTime;
