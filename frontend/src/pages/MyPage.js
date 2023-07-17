@@ -1,6 +1,6 @@
 import React from 'react'
 
-const dummyfile = () => {
+const MyPage = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const dummyfile = () => {
   )
 }
 
-export default dummyfile
+export default MyPage
