@@ -11,7 +11,6 @@ import java.util.Set;
 
 @ToString
 @Getter
-@Table(indexes = @Index(columnList = "id"))
 @Entity
 public class Manager extends AuditingFields{
 
