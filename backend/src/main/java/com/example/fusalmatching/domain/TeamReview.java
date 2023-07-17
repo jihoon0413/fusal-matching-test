@@ -17,7 +17,11 @@ public class TeamReview extends AuditingFields {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    private String team_id; //TODO 관계설정
+    @Setter
+    @ManyToOne
+    private Team team; //TODO 관계설정
+
+
     @Setter
     @Column(nullable = false)
     private int manner;
@@ -26,16 +30,20 @@ public class TeamReview extends AuditingFields {
     @Column(nullable = false)
     private int skill;
 
+
+
+
+
     protected TeamReview() {};
 
-    private TeamReview(String team_id, int manner, int skill) {
-        this.team_id = team_id;
+    private TeamReview(Team team, int manner, int skill) {
+        this.team = team;
         this.manner =manner;
         this.skill = skill;
     }
 
-    public static TeamReview of(String team_id, int manner, int skill) {
-        return new TeamReview(team_id, manner, skill);
+    public static TeamReview of(Team team, int manner, int skill) {
+        return new TeamReview(team, manner, skill);
     }
 
     @Override
@@ -43,11 +51,11 @@ public class TeamReview extends AuditingFields {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeamReview that = (TeamReview) o;
-        return manner == that.manner && skill == that.skill && Objects.equals(id, that.id) && Objects.equals(team_id, that.team_id);
+        return manner == that.manner && skill == that.skill && Objects.equals(id, that.id) && Objects.equals(team, that.team);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, team_id, manner, skill);
+        return Objects.hash(id, team, manner, skill);
     }
 }
