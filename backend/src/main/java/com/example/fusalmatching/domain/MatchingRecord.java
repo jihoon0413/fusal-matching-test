@@ -12,14 +12,19 @@ import java.util.Objects;
 
 @ToString
 @Getter
-@Table(indexes ={
-        @Index(columnList = "team_id1"),
-        @Index(columnList = "team_id2"),
-        @Index(columnList = "stadium_id"),
-        @Index(columnList = "field_id")
-})
+//@Table(indexes ={
+//        @Index(columnList = "team1"),
+//        @Index(columnList = "team2"),
+//        @Index(columnList = "stadium_id"),
+//        @Index(columnList = "field_id")
+//})
 @Entity
 public class MatchingRecord {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
+
+
     @ManyToOne
     private Team team1; //TODO 관게설정필요
 

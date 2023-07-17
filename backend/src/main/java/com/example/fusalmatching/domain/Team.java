@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @ToString
 @Table(indexes = {
-        @Index(columnList = "teamId"),
+        @Index(columnList = "id"),
         @Index(columnList = "teamName")
 })
 @Entity
@@ -29,10 +29,10 @@ public class Team extends AuditingFields {
     @OneToMany(mappedBy = "team")
     private final Set<TeamReview> teamReviews = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "team_id1")
+    @OneToMany(mappedBy = "team1")
     private final Set<MatchingRecord> matchingRecordsFrom1 = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "team_id2")
+    @OneToMany(mappedBy = "team2")
     private final Set<MatchingRecord> matchingRecordsFrom2 = new LinkedHashSet<>();
 
     @Setter private int manner;
