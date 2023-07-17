@@ -11,10 +11,7 @@ import java.util.Set;
 
 @ToString
 @Getter
-@Table(indexes = {
-        @Index(columnList = "stadium_id"),
-        @Index(columnList = "managerId")
-})
+@Table(indexes = @Index(columnList = "id"))
 @Entity
 public class Manager extends AuditingFields{
 
