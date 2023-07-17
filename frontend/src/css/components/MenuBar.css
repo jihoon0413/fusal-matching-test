@@ -22,12 +22,14 @@ ul{
   position:relative;
   top:-30px;
   right:20px;
+
 }
 button{
   border-radius: 10px;
   border :none;
   width:70px;
   height:30px;
+  background-color: #D9D9D9;
 }
 button:hover{
   
