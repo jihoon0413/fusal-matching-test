@@ -7,12 +7,20 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
 @ToString
 @Getter
+@Table(indexes ={
+        @Index(columnList = "team_id1"),
+        @Index(columnList = "team_id2"),
+        @Index(columnList = "stadium_id"),
+        @Index(columnList = "field_id")
+})
 @Entity
 public class MatchingRecord {
     private String team_id1; //TODO 관게설정필요
