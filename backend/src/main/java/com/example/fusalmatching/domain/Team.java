@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -27,11 +26,24 @@ public class Team extends AuditingFields {
 
     @Setter private String teamName;
 
+    @OneToMany(mappedBy = "team")
+    private final Set<TeamReview> teamReviews = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "team_id1")
+    private final Set<MatchingRecord> matchingRecordsFrom1 = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "team_id2")
+    private final Set<MatchingRecord> matchingRecordsFrom2 = new LinkedHashSet<>();
+
     @Setter private int manner;
 
     @Setter private int skill;
 
     @Setter private int evaluationCount;
+
+
+
+
 
 
     protected Team() {};
