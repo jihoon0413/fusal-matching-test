@@ -1,4 +1,7 @@
 package com.example.fusalmatching.repository;
 
-public class TeamRepository {
+import com.example.fusalmatching.domain.Team;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TeamRepository extends JpaRepository<Team, String> {
 }
