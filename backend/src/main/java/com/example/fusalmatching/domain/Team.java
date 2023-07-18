@@ -62,11 +62,11 @@ public class Team extends AuditingFields {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Team team = (Team) o;
-        return manner == team.manner && skill == team.skill && evaluationCount == team.evaluationCount && Objects.equals(id, team.id) && Objects.equals(password, team.password) && Objects.equals(teamName, team.teamName);
+        return manner == team.manner && skill == team.skill && evaluationCount == team.evaluationCount && Objects.equals(id, team.id) && Objects.equals(password, team.password) && Objects.equals(teamName, team.teamName) && Objects.equals(teamReviews, team.teamReviews) && Objects.equals(matchingRecordsFrom1, team.matchingRecordsFrom1) && Objects.equals(matchingRecordsFrom2, team.matchingRecordsFrom2);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, password, teamName, manner, skill, evaluationCount);
+        return Objects.hash(id, password, teamName, teamReviews, matchingRecordsFrom1, matchingRecordsFrom2, manner, skill, evaluationCount);
     }
 }

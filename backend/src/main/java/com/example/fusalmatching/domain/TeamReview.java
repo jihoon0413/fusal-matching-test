@@ -18,7 +18,7 @@ public class TeamReview extends AuditingFields {
 
     @Setter
     @ManyToOne
-    private Team team; //TODO 관계설정
+    private Team team;
 
 
     @Setter
