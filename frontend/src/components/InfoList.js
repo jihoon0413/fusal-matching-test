@@ -11,7 +11,7 @@ const InfoList = () => {
         <ImgSwiper width={320} height={250}/>
         <div className='description'>
             <div className='head'>
-              <div className='name'><Link to='/info/:index'>신화 풋살장</Link></div>
+              <div className='name'><Link to='/info/1'>신화 풋살장</Link></div>
               <div className='line'></div>
               <div className='price'>2시간 ￦80,000</div>
               <div><button><Link to='/reserve'>예약하기</Link></button></div>

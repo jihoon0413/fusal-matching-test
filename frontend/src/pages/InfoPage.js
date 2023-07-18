@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { StadiumInfoContext } from '../context/StadiumInfoContext'
 
 const InfoPage = () => {
+
+  const {value} = useContext(StadiumInfoContext)
+  console.log(value)
+
   return (
     <div>
-      infopage입니다
     </div>
   )
 }
