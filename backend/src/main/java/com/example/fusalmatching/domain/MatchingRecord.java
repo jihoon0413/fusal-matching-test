@@ -15,7 +15,7 @@ import java.util.Objects;
 @Entity
 public class MatchingRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
