@@ -15,7 +15,7 @@ public class TeamController {
 
     private final TeamService teamService;
 
-    @PostMapping
+    @PostMapping("/new")
     public void createTeam(@RequestBody TeamDto teamDto) {
 
         int id = teamDto.getId();
