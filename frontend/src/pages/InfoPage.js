@@ -3,6 +3,7 @@ import { StadiumInfoContext } from '../context/StadiumInfoContext'
 import ImgSwiper from '../components/ImgSwiper'
 import '../css/pages/InfoPage.css'
 import img from '../img/사장님.jpg'
+import Review from '../components/Review'
 
 const InfoPage = () => {
 
@@ -38,6 +39,15 @@ const InfoPage = () => {
               <div className='review_count' style={{width:"50px", height:"50px"}}></div>
               <div style={{fontSize:"20px", fontWeight:"700"}}>풋살장 리뷰</div>
               <div style={{marginLeft:"5px"}}>+50</div>
+            </div>
+            <div className='reviews'>
+              <Review/>
+              <Review/>
+              <Review/>
+              <Review/>
+              <Review/>
+              <Review/>
+              <Review/>
             </div>
           </div>
         </div>
