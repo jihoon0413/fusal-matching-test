@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../css/pages/LoginPage.css';
 import ListPage from '../pages/ListPage.js';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
 
@@ -49,7 +49,7 @@ const LoginPage = () => {
             </div>
           </div>
           <div>
-            <button className='btn_make'>회원가입</button>
+            <button className='btn_make'><Link to='/membership'>회원가입</Link></button>
             <span>/</span>
             <button className='btn_find'>비밀번호 찾기</button>
           </div>
