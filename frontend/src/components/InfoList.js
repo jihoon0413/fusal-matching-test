@@ -21,7 +21,7 @@ const InfoList = () => {
 
             <div className='address'>{value.address}</div>
             <div className='time'><span style={{fontSize:"20px"}} className="material-symbols-outlined">history</span> 이용시간대 {value.time}</div>
-            <div className='phone'><span style={{fontSize:"20px"}} className="material-symbols-outlined">phone_in_talk</span>{value.phone}</div>
+            <div className='phone'><span style={{fontSize:"20px"}} className="material-symbols-outlined">phone_in_talk</span> {value.phone}</div>
 
           <div className='round_sticker'>
             <div className='holiday' style={{width:"80px", height:"80px"}}>연중<br/>무휴</div>
