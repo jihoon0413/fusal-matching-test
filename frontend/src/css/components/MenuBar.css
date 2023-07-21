@@ -34,3 +34,11 @@ button{
 button:hover{
   
 }
+.mypage{
+  position:relative;
+  right:90px;
+  background-color: transparent;
+}
+.mypage:hover{
+  text-decoration: underline;
+}
