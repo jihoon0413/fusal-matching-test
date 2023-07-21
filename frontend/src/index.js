@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import StadiumInfoProvider from './context/StadiumInfoContext';
+import UserProvider from './context/UserContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
   <StadiumInfoProvider>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </StadiumInfoProvider>
   </BrowserRouter>
 );
