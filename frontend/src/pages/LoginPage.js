@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import '../css/pages/LoginPage.css';
 import ListPage from '../pages/ListPage.js';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 const LoginPage = () => {
 
   const [id,setId] = useState()
   const [pw,setPw] = useState()
-  const [rightLogin,setRightLogin] = useState()
   const [hidden,setHidden] = useState("hidden")
   const navigate = useNavigate()
-
+  const {rightLogin,setRightLogin} = useContext(UserContext)
   const fakeId = 'aabb'
   const fakePw = 1234
 
