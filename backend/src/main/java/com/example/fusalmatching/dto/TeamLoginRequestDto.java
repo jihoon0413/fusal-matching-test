@@ -1,13 +1,11 @@
 package com.example.fusalmatching.dto;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
-public class TeamDto {
-
+@Data
+public class TeamLoginRequestDto {
     private String id;
     private String password;
-    private String teamName;
 
 
 }
