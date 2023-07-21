@@ -14,9 +14,13 @@ spring:
     password: ${LOCAL_DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  jwt:
+    secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+
   jpa:
     database: mysql   # ?? ?? ??
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # ?? ?? ??
+    open-in-view: false
     defer-datasource-initialization: true
     hibernate.ddl-auto: create
     show-sql: true
@@ -38,7 +42,14 @@ spring:
   thymeleaf:
     check-template-location: false
 
+
+
 ---
 
 spring:
   config.activate.on-profile: heroku
+
+
+
+
+
