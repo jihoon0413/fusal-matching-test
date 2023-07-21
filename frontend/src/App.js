@@ -7,6 +7,7 @@ import InfoPage from './pages/InfoPage';
 import ReservePage from './pages/ReservePage';
 import MyPage from './pages/MyPage';
 import LoginPage from './pages/LoginPage';
+import MembershipPage from './pages/MembershipPage';
 
 
 const Layout =()=>{
@@ -27,6 +28,7 @@ function App() {
           <Route path='/reserve' element={<ReservePage/>}/>
           <Route path='/mypage' element={<MyPage/>}/>
           <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/membership' element={<MembershipPage/>}/>
         </Route>
       </Routes>
     </div>
