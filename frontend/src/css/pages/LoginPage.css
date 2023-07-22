@@ -33,10 +33,12 @@ input{
 .btn_make{
   margin-left:350px;
   background-color: transparent;
+  color:blue;
 }
 .btn_find{
   width:100px;
   background-color: transparent;
+  color:blue;
 }
 .btn_make:hover,
 .btn_find:hover{
