@@ -16,6 +16,7 @@ const LoginPage = () => {
 
   const saveId = (e)=>{
     setId(e.target.value)
+    console.log(id)
   }
   const savePw = (e)=>{
     setPw(e.target.value)
@@ -49,7 +50,7 @@ const LoginPage = () => {
             </div>
           </div>
           <div>
-            <button className='btn_make'><Link to='/membership'>회원가입</Link></button>
+            <button className='btn_make'><Link to='/membership' style={{color:"blue"}}>회원가입</Link></button>
             <span>/</span>
             <button className='btn_find'>비밀번호 찾기</button>
           </div>
