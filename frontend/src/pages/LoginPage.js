@@ -15,6 +15,7 @@ const LoginPage = () => {
 
   const saveId = (e)=>{
     setId(e.target.value)
+    console.log(id)
   }
   const savePw = (e)=>{
     setPw(e.target.value)
