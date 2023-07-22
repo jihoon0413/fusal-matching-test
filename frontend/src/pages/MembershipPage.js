@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/pages/MembershipPage.css';
 
 const MembershipPage = () => {
@@ -17,14 +17,16 @@ const MembershipPage = () => {
       setColor("red")
     }
   }
-
-  const checkSame = (e)=>{
-    setCheckpw(e.target.value)
-    if(pw == checkpw){
-      setHidden("visible")
-      console.log(hidden)
+  useEffect(()=>{
+    if(checkpw>0){
+      if(pw == checkpw){
+        setHidden("visible")
+      }else{
+        setHidden("hidden")
+      }
     }
-  }
+  },[checkpw])
+
   return (
     <div>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -46,13 +48,13 @@ const MembershipPage = () => {
 
           <div style={{display:"flex",alignItems:"center", position:"relative"}}>
             <span style={{fontSize:"30px"}}className="material-symbols-outlined">lock</span>
-            <input placeholder='팀 비밀번호 확인' type='password' onChange={(e)=>{checkSame(e)}}/>
+            <input placeholder='팀 비밀번호 확인' type='password' onChange={(e)=>{setCheckpw(e.target.value)}}/>
             <div style={{position:"absolute", left:"470px", color:"red",visibility:`${hidden}`}}>ok!</div>
           </div>
 
           <div style={{display:"flex",alignItems:"center"}}>
             <span style={{fontSize:"30px"}}className="material-symbols-outlined">sports_soccer</span>
-            <input placeholder='팀명'/>
+            <input placeholder='팀명' />
           </div>
 
           <div style={{display:"flex",alignItems:"center"}}>
