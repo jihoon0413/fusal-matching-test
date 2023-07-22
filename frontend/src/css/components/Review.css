@@ -1,0 +1,7 @@
+.review{
+  display:flex;
+  margin-left:20px;
+}
+.review_content{
+  max-width:400px;
+}
