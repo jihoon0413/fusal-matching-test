@@ -1,9 +1,9 @@
-package com.example.fusalmatching.dto;
+package com.example.fusalmatching.dto.request;
 
 import lombok.Getter;
 
 @Getter
-public class TeamDto {
+public class TeamSignDto {
 
     private String id;
     private String password;
