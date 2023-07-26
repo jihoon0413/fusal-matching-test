@@ -1,14 +1,15 @@
 package com.example.fusalmatching.controller;
 
 import com.example.fusalmatching.config.jwt.JwtToken;
-import com.example.fusalmatching.dto.TeamDto;
-import com.example.fusalmatching.dto.TeamLoginRequestDto;
+import com.example.fusalmatching.dto.request.TeamSignDto;
+import com.example.fusalmatching.dto.request.TeamLoginRequestDto;
+import com.example.fusalmatching.dto.response.TeamResponseDto;
+import com.example.fusalmatching.dto.response.TeamReviewResponseDto;
 import com.example.fusalmatching.service.TeamService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/teams")
@@ -17,8 +18,19 @@ public class TeamController {
 
     private final TeamService teamService;
 
+    @GetMapping
+    public TeamResponseDto getTeamList(@RequestParam String id) {
+
+        return teamService.getTeam(id);
+    }
+
+    @GetMapping("/reviews")
+    public List<TeamReviewResponseDto> getReviews(@RequestParam String id) {
+        return teamService.getReviewList(id);
+    }
+
     @PostMapping("/new")
-    public void createTeam(@RequestBody TeamDto teamDto) {
+    public void createTeam(@RequestBody TeamSignDto teamDto) {
 
         teamService.createTeam(teamDto.getId(),teamDto.getPassword(),teamDto.getTeamName());
 
