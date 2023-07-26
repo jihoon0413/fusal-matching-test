@@ -1,9 +1,10 @@
 package com.example.fusalmatching.config;
 
-import com.example.fusalmatching.config.jwt.JwtTokenProvider;
 import com.example.fusalmatching.config.jwt.JwtAuthenticationFilter;
+import com.example.fusalmatching.config.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -27,12 +28,17 @@ public class SecurityConfig {
 
         http
                 .httpBasic().disable()
+                .cors(Customizer.withDefaults())
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
+                .antMatchers("/teams").permitAll()
+                .antMatchers("/stadiums/**").permitAll()
+                .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/teams/login").permitAll()
                 .antMatchers("/teams/new").permitAll()
+                .antMatchers("/teams/**").permitAll()
 //                .antMatchers("/teams/test").hasRole("[USER]")
                 .anyRequest().authenticated()
                 .and()
@@ -41,7 +47,9 @@ public class SecurityConfig {
         return http.build();
 
 //        return http
+//                .cors(Customizer.withDefaults())
 //                .csrf().disable()
+//                .httpBasic().disable()
 //                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
 //                .formLogin().and()
 //                .build();

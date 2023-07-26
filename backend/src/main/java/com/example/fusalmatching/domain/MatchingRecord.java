@@ -20,10 +20,10 @@ public class MatchingRecord {
 
 
     @ManyToOne
-    private Team team1; //TODO 관게설정필요
+    private Team team1;
 
     @ManyToOne
-    private Team team2; //TODO 관게설정필요
+    private Team team2;
 
     @ManyToOne
     private Stadium stadium;

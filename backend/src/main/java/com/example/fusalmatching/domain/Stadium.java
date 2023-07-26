@@ -21,25 +21,31 @@ public class Stadium extends AuditingFields{
     @ManyToOne
     private Manager manager;
 
-
+    @ToString.Exclude
     @OneToMany(mappedBy = "stadium")
     private final Set<Field> fields = new LinkedHashSet<>();
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "stadium")
     private final Set<StadiumReview> stadiumReviews = new LinkedHashSet<>();
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "stadium")
     private final Set<MatchingRecord> matchingRecords = new LinkedHashSet<>();
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "stadium")
     private final Set<StadiumImage> stadiumImages = new LinkedHashSet<>();
 
+    @Setter private String stadiumName;
+    @Setter private String address;
     @Setter private String tel;
     @Setter private String time;
+    @Setter private String cost;
     @Setter private int fieldCount;
     @Setter private int evaluationCount;
     @Setter private int gpa;
-    //photo
+
 
 
 
@@ -47,14 +53,15 @@ public class Stadium extends AuditingFields{
 
     protected Stadium() {}
 
-    private Stadium(String tel, String time, int fieldCount) {
+    private Stadium(String stadiumName, String address, String tel, String time, int fieldCount, String cost) {
         this.tel = tel;
         this.time = time;
         this.fieldCount =fieldCount;
+        this.cost = cost;
     }
 
-    public static Stadium of(String tel, String time, int fieldCount) {
-        return new Stadium(tel, time, fieldCount);
+    public static Stadium of(String stadiumName, String address, String tel, String time, int fieldCount, String cost) {
+        return new Stadium(stadiumName, address, tel, time, fieldCount, cost);
     }
 
     @Override
@@ -62,11 +69,11 @@ public class Stadium extends AuditingFields{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stadium stadium = (Stadium) o;
-        return fieldCount == stadium.fieldCount && evaluationCount == stadium.evaluationCount && gpa == stadium.gpa && Objects.equals(id, stadium.id) && Objects.equals(tel, stadium.tel) && Objects.equals(time, stadium.time);
+        return fieldCount == stadium.fieldCount && evaluationCount == stadium.evaluationCount && gpa == stadium.gpa && Objects.equals(id, stadium.id) && Objects.equals(manager, stadium.manager) && Objects.equals(fields, stadium.fields) && Objects.equals(stadiumReviews, stadium.stadiumReviews) && Objects.equals(matchingRecords, stadium.matchingRecords) && Objects.equals(stadiumImages, stadium.stadiumImages) && Objects.equals(stadiumName, stadium.stadiumName) && Objects.equals(address, stadium.address) && Objects.equals(tel, stadium.tel) && Objects.equals(time, stadium.time) && Objects.equals(cost, stadium.cost);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tel, time, fieldCount, evaluationCount, gpa);
+        return Objects.hash(id, manager, fields, stadiumReviews, matchingRecords, stadiumImages, stadiumName, address, tel, time, cost, fieldCount, evaluationCount, gpa);
     }
 }

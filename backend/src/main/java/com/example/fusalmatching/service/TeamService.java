@@ -3,11 +3,12 @@ package com.example.fusalmatching.service;
 import com.example.fusalmatching.config.jwt.JwtToken;
 import com.example.fusalmatching.config.jwt.JwtTokenProvider;
 import com.example.fusalmatching.domain.Team;
-import com.example.fusalmatching.dto.Role;
-import com.example.fusalmatching.dto.TeamDto;
+import com.example.fusalmatching.domain.TeamReview;
+import com.example.fusalmatching.dto.response.TeamResponseDto;
+import com.example.fusalmatching.dto.response.TeamReviewResponseDto;
 import com.example.fusalmatching.repository.TeamRepository;
+import com.example.fusalmatching.repository.TeamReviewRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -15,8 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -27,14 +29,13 @@ public class TeamService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final TeamReviewRepository teamReviewRepository;
 
     @Transactional
     public void createTeam(String id, String password, String teamName) {
 
 //        String hashedPassword = passwordEncoder.encode(password);           //TODO: 아이디, 닉네임 중복확인 해야함
-
         Team newTeam = Team.of(id, teamName, password);
-        System.out.println("********>>>>>>> " + newTeam.toString());
         teamRepository.save(newTeam);
 
     }
@@ -54,6 +55,43 @@ public class TeamService {
 
         return jwtTokenProvider.generateToken(authentication, id);
 
+    }
+
+    @Transactional
+    public TeamResponseDto getTeam(String id) {
+            Optional<Team> collect = teamRepository.findById(id);
+            Team team = collect.get();
+            return entityToDto(team);
+
+    }
+
+    private TeamResponseDto entityToDto(Team team) {
+        var dto = new TeamResponseDto();
+        dto.setId(team.getId());
+        dto.setTeamName(team.getTeamName());
+        dto.setManner(team.getManner());
+        dto.setSkill(team.getSkill());
+        return dto;
+    }
+
+
+    @Transactional
+    public List<TeamReviewResponseDto> getReviewList(String id) {
+
+        List<TeamReviewResponseDto> collect = teamReviewRepository.findAllByTeamId(id)
+                .stream().map(it -> entityToDto(it))
+                .collect(Collectors.toList());
+
+        return collect;
+
+
+    }
+
+    private TeamReviewResponseDto entityToDto(TeamReview teamReview) {
+        var dto = new TeamReviewResponseDto();
+        dto.setManner(teamReview.getManner());
+        dto.setSkill(teamReview.getSkill());
+        return dto;
     }
 
 

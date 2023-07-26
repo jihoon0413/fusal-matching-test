@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
+
+
 import java.util.Objects;
 
 @ToString
@@ -22,11 +24,12 @@ public class Field {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "stadium_id")
     private Stadium stadium;
 
-    private LocalDate matchingDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private Date matchingDate;
+    private Time startTime;
+    private Time endTime;
     private String cost;
 
 
@@ -35,7 +38,7 @@ public class Field {
 
     protected Field() {}
 
-    private Field(Stadium stadium, LocalDate matchingDate, LocalTime startTime, LocalTime endTime, String cost) {
+    private Field(Stadium stadium, Date matchingDate, Time startTime, Time endTime, String cost) {
         this.stadium = stadium;
         this.matchingDate = matchingDate;
         this.startTime = startTime;
@@ -43,7 +46,7 @@ public class Field {
         this.cost = cost;
     }
 
-    public static Field of(Stadium stadium, LocalDate matchingDate, LocalTime startTime, LocalTime endTime, String cost){
+    public static Field of(Stadium stadium, Date matchingDate, Time startTime, Time endTime, String cost){
         return new Field(stadium, matchingDate, startTime, endTime, cost);
     }
 

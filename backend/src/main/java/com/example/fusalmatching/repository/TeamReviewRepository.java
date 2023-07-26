@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TeamReviewRepository extends JpaRepository<TeamReview, Long> {
-
-    TeamReview findByTeam(Team team);
+    List<TeamReview> findAllByTeamId(String id);
+//    TeamReview findByTeam(Team team);
 }
+

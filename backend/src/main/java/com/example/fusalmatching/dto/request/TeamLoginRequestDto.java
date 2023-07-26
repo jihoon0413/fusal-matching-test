@@ -1,4 +1,4 @@
-package com.example.fusalmatching.dto;
+package com.example.fusalmatching.dto.request;
 
 import lombok.Data;
 
