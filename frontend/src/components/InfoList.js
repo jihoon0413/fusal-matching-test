@@ -27,7 +27,7 @@ const InfoList = ({id,price,name,address,time,phone}) => {
               >{name}</Link></div>
               <div className='line'></div>
               <div className='price'>2시간 ￦{price}</div>
-              <div><button><Link to='/reserve'>예약하기</Link></button></div>
+              <div><button><Link to={'/reserve'} state={{id:id}}>예약하기</Link></button></div>
             </div>
 
             <div className='address'>{address}</div>
