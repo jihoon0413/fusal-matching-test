@@ -1,6 +1,7 @@
 package com.example.fusalmatching.domain;
 
 import com.example.fusalmatching.dto.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 @Builder
 @AllArgsConstructor
-@ToString()
+@ToString
 @Table(indexes = {
         @Index(columnList = "teamName")
 })
@@ -30,13 +31,16 @@ public class Team extends AuditingFields implements UserDetails {
 
     @Setter private String teamName;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team")
+    @ToString.Exclude
     private final Set<TeamReview> teamReviews = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "team1")
+    @ToString.Exclude
     private final Set<MatchingRecord> matchingRecordsFrom1 = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "team2")
+    @ToString.Exclude
     private final Set<MatchingRecord> matchingRecordsFrom2 = new LinkedHashSet<>();
 
     @Setter private int manner;

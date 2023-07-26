@@ -21,6 +21,7 @@ public class Manager extends AuditingFields{
     @Setter private String password;
 
     @OneToMany(mappedBy = "manager")
+    @ToString.Exclude
     private final Set<Stadium> stadiums = new LinkedHashSet<>();
 
 

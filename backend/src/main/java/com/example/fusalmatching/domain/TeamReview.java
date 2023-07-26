@@ -16,7 +16,7 @@ public class TeamReview extends AuditingFields {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
+
     @ManyToOne
     private Team team;
 
