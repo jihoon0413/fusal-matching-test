@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import "../css/pages/reservePage.css"
+import Field from '../components/Field'
 
 const ReservePage = () => {
   const location = useLocation()
@@ -129,7 +130,10 @@ const ReservePage = () => {
           <button onClick={fetchField}>조회</button>
       </div>
       <hr/>
-
+      
+      <Field/>
+      <Field/>
+      <Field/>
       
     </div>
   )
