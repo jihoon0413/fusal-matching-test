@@ -10,7 +10,7 @@ const ListPage = () => {
   useEffect(()=>{
     const fetchStadiums = async()=>{
       try{
-        const result = await axios.get("https://7812-218-156-213-133.ngrok-free.app/stadiums",{
+        const result = await axios.get("https://5b95-39-114-9-53.ngrok-free.app/stadiums",{
         headers: {
               'Content-Type': `application/json`,
               'ngrok-skip-browser-warning': '69420',
