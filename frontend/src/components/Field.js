@@ -31,7 +31,9 @@ const Field = ({fieldName , endTime, startTime, date}) => {
       <button className='whole_btn' onClick={WholdReserve}>전체 대여</button>
 
       {(modalState)
-      ?<Modal setModalState={setModalState} reserveSort={reserveSort} fieldName={fieldName} date={date} startTime={startTime} endTime={endTime}/>
+      ?
+      <><Modal setModalState={setModalState} reserveSort={reserveSort} fieldName={fieldName} date={date} startTime={startTime} endTime={endTime}/>
+      <div style={{backgroundColor:'rgba(179, 179, 179, 0.5)', width:'100%', height:'100%', position:'fixed',top:'0',left:'0',zIndex:'1'}}></div></>
       :<></>
       }
       
