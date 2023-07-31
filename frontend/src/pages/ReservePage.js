@@ -136,10 +136,8 @@ const ReservePage = () => {
       <Field fieldName={"A"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
       <Field fieldName={"B"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
       <Field fieldName={"C"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
-      
     </div>
     
-    <div style={{backgroundColor:'rgba(179, 179, 179, 0.164)', width:'100%', height:'100%', position:'absolute'}}></div>
     </>
   )
 }
