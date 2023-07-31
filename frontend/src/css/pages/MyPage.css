@@ -1,0 +1,26 @@
+.mypage_top{
+  margin-top:50px;
+  display:flex;
+}
+.mypage_top_left{
+  width:600px;
+  height:400px;
+  background-color:#adadad49;
+  border-radius: 20px;
+  padding:30px;
+  box-sizing: border-box;
+}
+.icon{
+  font-size:1.2rem;
+}
+.profile{
+  width:130px;
+  height:130px;
+  background-color: black;
+  border-radius: 50%;
+  
+}
+.introduce{
+  display:flex;
+  margin:20px 0 30px 20px;
+}
