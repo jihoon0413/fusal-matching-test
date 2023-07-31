@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import "../css/pages/reservePage.css"
 import Field from '../components/Field'
+import Modal from '../components/Modal'
 
 const ReservePage = () => {
   const location = useLocation()
@@ -90,6 +91,7 @@ const ReservePage = () => {
 
 
   return (
+    <>
     <div className='center'>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         
@@ -131,11 +133,12 @@ const ReservePage = () => {
       </div>
       <hr/>
       
-      <Field/>
-      <Field/>
-      <Field/>
-      
+      <Field fieldName={"A"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
+      <Field fieldName={"B"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
+      <Field fieldName={"C"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
     </div>
+    
+    </>
   )
 }
 export default ReservePage
