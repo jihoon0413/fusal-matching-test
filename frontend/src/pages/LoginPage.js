@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../css/pages/LoginPage.css';
 import ListPage from '../pages/ListPage.js';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
+import axios from 'axios';
 
 const LoginPage = () => {
 
@@ -10,27 +11,43 @@ const LoginPage = () => {
   const [pw,setPw] = useState()
   const [hidden,setHidden] = useState("hidden")
   const navigate = useNavigate()
-  const {rightLogin,setRightLogin} = useContext(UserContext)
-  const fakeId = 'aabb'
-  const fakePw = 1234
+  const {rightLogin,setRightLogin,setAccessToken} = useContext(UserContext)
 
   const saveId = (e)=>{
     setId(e.target.value)
-    console.log(id)
   }
   const savePw = (e)=>{
     setPw(e.target.value)
   }
 
+  let token 
+  const fetchLogin = async()=>{
+    try{
+      const result = await axios.post("https://5b95-39-114-9-53.ngrok-free.app/teams/login",{
+          id : id,
+          password : pw,
+      headers: {
+            'Content-Type': `application/json`,
+            'ngrok-skip-browser-warning': '69420',
+          },
+      })
+    token = result.data.accessToken
+    console.log(token)
+    setAccessToken(token)
+    checkLogin()
+    }catch(err){
+      console.log("err입니당~",err)
+    }
+  }
+
+  
   const checkLogin = ()=>{
-  if(fakeId == id && fakePw == pw){
-    setRightLogin(true)
-  }else{
-    setRightLogin(false)
-    setHidden("visible")
-  }}
-
-
+    if(token){
+      setRightLogin(true)
+    }else{
+      setRightLogin(false)
+      setHidden("visible")
+    }}
   return (
     <div>
       {rightLogin
@@ -55,7 +72,7 @@ const LoginPage = () => {
             <button className='btn_find'>비밀번호 찾기</button>
           </div>
           <div className='login_err' style={{visibility:`${hidden}`}}>아이디 또는 비밀번호를 잘못 입력했습니다.</div>
-          <button className='btn_login' onClick={()=>{checkLogin()}}>로그인</button>
+          <button className='btn_login' onClick={fetchLogin}>로그인</button>
         </div>
       </>
       }
