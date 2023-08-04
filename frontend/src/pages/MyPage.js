@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import '../css/pages/MyPage.css'
 import NowBreakdown from '../components/NowBreakdown'
 import FutureBreakdown from '../components/FutureBreakdown'
+import { UserContext } from '../context/UserContext'
 
 const MyPage = () => {
+
+  const {accessToken} = useContext(UserContext)
+
 
   return (
     <div className='center'>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
       <div className='mypage_top'>
         <div className='mypage_top_left'>
-          <div className='icon'><span class="material-symbols-outlined">lock</span> <span class="material-symbols-outlined">edit</span></div>
+          <div className='icon'><span className="material-symbols-outlined">lock</span> <span className="material-symbols-outlined">edit</span></div>
           <div className='introduce'>
             <div className='profile'></div>
             <ul style={{display:'block'}}>
@@ -21,7 +25,7 @@ const MyPage = () => {
               <li style={{marginBottom:'3px'}}><span style={{display:'inline-block',width:'70px'}}>매너</span><span style={{color:'#adadad80'}}>| </span><span>최상</span></li>
             </ul>
           </div>
-          <div style={{display:'flex',alignItem:'center', fontSize:'1.2rem'}}><span class="material-symbols-outlined">rewarded_ads</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 수상 경력</span></div>
+          <div style={{display:'flex',alignItem:'center', fontSize:'1.2rem'}}><span className="material-symbols-outlined">rewarded_ads</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 수상 경력</span></div>
           <hr/>
           <ul className='mypage_list'>
             <li>2019년도 '오로라' 풋살 대회 준우승</li>
