@@ -5,10 +5,10 @@ export const UserContext = createContext()
 export default function UserProvider({children}){
 
   const [rightLogin,setRightLogin] = useState(false)
-
+  const [accessToken,setAccessToken] = useState()
   return(
     <>
-      <UserContext.Provider value={{rightLogin,setRightLogin}}>
+      <UserContext.Provider value={{rightLogin,setRightLogin,accessToken,setAccessToken}}>
         {children}
       </UserContext.Provider>
     </>
