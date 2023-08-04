@@ -35,13 +35,12 @@ public class Team extends AuditingFields implements UserDetails {
     @ToString.Exclude
     private final Set<TeamReview> teamReviews = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "team1")
-    @ToString.Exclude
-    private final Set<MatchingRecord> matchingRecordsFrom1 = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "team2")
+    @OneToMany(mappedBy = "team")
     @ToString.Exclude
-    private final Set<MatchingRecord> matchingRecordsFrom2 = new LinkedHashSet<>();
+    private final Set<TeamMatching> teamMatching = new LinkedHashSet<>();
+
+
 
     @Setter private int manner;
 
@@ -81,11 +80,6 @@ public class Team extends AuditingFields implements UserDetails {
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-
-
-
-
-
     }
 
     @Override
@@ -118,16 +112,17 @@ public class Team extends AuditingFields implements UserDetails {
         return true;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Team team = (Team) o;
-        return manner == team.manner && skill == team.skill && evaluationCount == team.evaluationCount && Objects.equals(id, team.id) && Objects.equals(password, team.password) && Objects.equals(teamName, team.teamName) && Objects.equals(teamReviews, team.teamReviews) && Objects.equals(matchingRecordsFrom1, team.matchingRecordsFrom1) && Objects.equals(matchingRecordsFrom2, team.matchingRecordsFrom2) && Objects.equals(roles, team.roles);
+        return manner == team.manner && skill == team.skill && evaluationCount == team.evaluationCount && Objects.equals(id, team.id) && Objects.equals(password, team.password) && Objects.equals(teamName, team.teamName) && Objects.equals(teamReviews, team.teamReviews) && Objects.equals(teamMatching, team.teamMatching) && Objects.equals(roles, team.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, password, teamName, teamReviews, matchingRecordsFrom1, matchingRecordsFrom2, manner, skill, evaluationCount, roles);
+        return Objects.hash(id, password, teamName, teamReviews, teamMatching, manner, skill, evaluationCount, roles);
     }
 }

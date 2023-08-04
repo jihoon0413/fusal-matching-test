@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.Set;
 
 @ToString
 @Getter
@@ -19,11 +20,8 @@ public class MatchingRecord {
     private Long id;
 
 
-    @ManyToOne
-    private Team team1;
-
-    @ManyToOne
-    private Team team2;
+    @OneToMany(mappedBy = "matchingRecord")
+    private Set<TeamMatching> teamMatching;
 
     @ManyToOne
     private Stadium stadium;
@@ -31,36 +29,25 @@ public class MatchingRecord {
     @OneToOne
     private Field field;
 
-    private LocalDate matchingDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
+
     private LocalTime confirmDate;
 
     
     private boolean confirm;
     private boolean allRental;
-    private boolean t1evalt2;
-    private boolean t2evalt1;
-    private boolean t1evalsta;
-    private boolean t2evalsta;
-
-
-
-
 
 
     protected MatchingRecord() {}
 
-    private MatchingRecord(Team team1, Team team2, Stadium stadium, Field field) {
-        this.team1 = team1;
-        this.team2 = team2;
+    private MatchingRecord(Set<TeamMatching> teamMatching, Stadium stadium, Field field) {
+        this.teamMatching = teamMatching;
         this.stadium = stadium;
         this.field =field;
 
     }
 
-    public static MatchingRecord of(Team team1, Team team2, Stadium stadium, Field field) {
-        return new MatchingRecord(team1, team2, stadium, field);
+    public static MatchingRecord of(Set<TeamMatching> teamMatching, Stadium stadium, Field field) {
+        return new MatchingRecord(teamMatching, stadium, field);
     }
 
     @Override
@@ -68,11 +55,11 @@ public class MatchingRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MatchingRecord that = (MatchingRecord) o;
-        return confirm == that.confirm && allRental == that.allRental && t1evalt2 == that.t1evalt2 && t2evalt1 == that.t2evalt1 && t1evalsta == that.t1evalsta && t2evalsta == that.t2evalsta && Objects.equals(team1, that.team1) && Objects.equals(team2, that.team2) && Objects.equals(stadium, that.stadium) && Objects.equals(field, that.field) && Objects.equals(matchingDate, that.matchingDate) && Objects.equals(startTime, that.startTime) && Objects.equals(endTime, that.endTime) && Objects.equals(confirmDate, that.confirmDate);
+        return confirm == that.confirm && allRental == that.allRental && Objects.equals(id, that.id) && Objects.equals(teamMatching, that.teamMatching) && Objects.equals(stadium, that.stadium) && Objects.equals(field, that.field) && Objects.equals(confirmDate, that.confirmDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(team1, team2, stadium, field, matchingDate, startTime, endTime, confirmDate, confirm, allRental, t1evalt2, t2evalt1, t1evalsta, t2evalsta);
+        return Objects.hash(id, teamMatching, stadium, field, confirmDate, confirm, allRental);
     }
 }
