@@ -66,7 +66,7 @@ const ReservePage = () => {
           },
       })
       setField(result.data)
-      
+      console.log(field)
     }catch(err){
       console.log("err입니당~",err)
     }
@@ -133,7 +133,7 @@ const ReservePage = () => {
       {field?.map((field,index) =>{
         if(field){
           return(
-          <Field fieldName={index} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
+          <Field field={field}fieldName={index+1} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
         }     
         })}
     </div>
