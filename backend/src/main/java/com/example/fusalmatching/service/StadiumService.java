@@ -1,25 +1,18 @@
 package com.example.fusalmatching.service;
 
-import com.example.fusalmatching.domain.Field;
-import com.example.fusalmatching.domain.Stadium;
-import com.example.fusalmatching.domain.StadiumReview;
+import com.example.fusalmatching.domain.*;
 import com.example.fusalmatching.dto.response.FieldResponseDto;
 import com.example.fusalmatching.dto.response.StadiumResponseDto;
 import com.example.fusalmatching.dto.response.StadiumReviewResponseDto;
 import com.example.fusalmatching.dto.response.TeamReviewResponseDto;
-import com.example.fusalmatching.repository.FieldRepository;
-import com.example.fusalmatching.repository.StadiumRepository;
-import com.example.fusalmatching.repository.StadiumReviewRepository;
+import com.example.fusalmatching.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +23,8 @@ public class StadiumService {
     private final StadiumRepository stadiumRepository;
     private final FieldRepository fieldRepository;
     private final StadiumReviewRepository stadiumReviewRepository;
+    private final MatchingRecordRepository matchingRecordRepository;
+    private final TeamMatchingRepository teamMatchingRepository;
 
     @Transactional
     public List<StadiumResponseDto> getStadiumList() {
@@ -112,14 +107,43 @@ public class StadiumService {
 
     public FieldResponseDto compareDate(Field field, Date date, Time time) {
 
+
+
         if(Objects.equals(String.valueOf(date), String.valueOf(field.getMatchingDate())) && Objects.equals(String.valueOf(time), String.valueOf(field.getStartTime()))) {
             var dto =new FieldResponseDto();
             dto.setId(field.getId());
             dto.setMatchingDate(String.valueOf(field.getMatchingDate()));
             dto.setStartTime(String.valueOf(field.getStartTime()));
             dto.setEndTime(String.valueOf(field.getEndTime()));
+
+            if(matchingRecordRepository.findByField_Id(field.getId()).isPresent()){
+                Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findByField_Id(field.getId());
+                MatchingRecord matchingRecord = matchingRecord1.get();
+                dto.setMatchingId(matchingRecord.getId());
+
+                List<FieldResponseDto.TeamDto> teams = new ArrayList<>();
+
+                List<TeamMatching> teamMatching1 = teamMatchingRepository.findAllByMatchingRecord_Id(matchingRecord.getId());
+
+                for(int i = 0 ; i < teamMatching1.size() ; i++) {
+                    teams.add(setTeamDto(teamMatching1.get(i)));
+                }
+                dto.setTeam(teams);
+            }
+
+
             return dto;
         }
         return null;
+    }
+
+    public FieldResponseDto.TeamDto setTeamDto(TeamMatching teamMatching) {
+        var teamDto = new FieldResponseDto.TeamDto();
+        Team team = teamMatching.getTeam();
+                teamDto.setId(String.valueOf(team.getId()));
+                teamDto.setTeamName(team.getTeamName());
+                teamDto.setManner(team.getManner());
+                teamDto.setSkill(team.getSkill());
+        return teamDto;
     }
 }
