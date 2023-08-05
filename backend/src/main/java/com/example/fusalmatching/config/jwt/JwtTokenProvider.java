@@ -62,6 +62,7 @@ public class JwtTokenProvider {
                 .grantType("Bearer")
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .id(id)
                 .build();
 
     }
