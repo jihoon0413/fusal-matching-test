@@ -58,6 +58,7 @@ const ReservePage = () => {
  
   const fetchField = async()=>{
     try{
+      console.log(stadiumValue,dateValue,startTimeValue)
       const result = await axios.get(`https://5b95-39-114-9-53.ngrok-free.app/stadiums/fields?id=${stadiumValue}&date=${dateValue}&time=${startTimeValue}:00`,{
       headers: {
             'Content-Type': `application/json`,
@@ -69,11 +70,7 @@ const ReservePage = () => {
     }catch(err){
       console.log("err입니당~",err)
     }
-
-    console.log(field)
   }
-
-
 
   const changeStadiumValue = (e)=>{
     setStadiumValue(e.target.value)
@@ -133,9 +130,12 @@ const ReservePage = () => {
       </div>
       <hr/>
       
-      <Field fieldName={"A"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
-      <Field fieldName={"B"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
-      <Field fieldName={"C"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
+      {field?.map((field,index) =>{
+        if(field){
+          return(
+          <Field fieldName={index} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
+        }     
+        })}
     </div>
     
     </>
