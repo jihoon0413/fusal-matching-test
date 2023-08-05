@@ -23,11 +23,7 @@ public class MatchingController {
     public void applyMatching(@RequestBody MatchingApplyRequestDto matchingApplyRequestDto) {
         matchingService.applyMatching(matchingApplyRequestDto);
     }
-
-    @PutMapping("/confirm")
-    public void confirmMatching() {
-        // 이건 다른사람이 들어가 있는 매칭에 신청하는거
-    }
+    
 
 
 

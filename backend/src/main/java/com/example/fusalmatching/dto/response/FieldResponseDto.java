@@ -19,6 +19,7 @@ public class FieldResponseDto {
     private String startTime;
     private String endTime;
     private Long matchingId;
+    private int fieldNum;
     private List<TeamDto> team;
 
     @Data
