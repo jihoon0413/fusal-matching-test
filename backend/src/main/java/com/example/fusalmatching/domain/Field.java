@@ -31,6 +31,7 @@ public class Field {
     private Time startTime;
     private Time endTime;
     private String cost;
+    private int fieldNum;
 
 
 
@@ -38,16 +39,17 @@ public class Field {
 
     protected Field() {}
 
-    private Field(Stadium stadium, Date matchingDate, Time startTime, Time endTime, String cost) {
+    private Field(Stadium stadium, Date matchingDate, Time startTime, Time endTime, String cost, int fieldNum) {
         this.stadium = stadium;
         this.matchingDate = matchingDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.cost = cost;
+        this.fieldNum =fieldNum;
     }
 
-    public static Field of(Stadium stadium, Date matchingDate, Time startTime, Time endTime, String cost){
-        return new Field(stadium, matchingDate, startTime, endTime, cost);
+    public static Field of(Stadium stadium, Date matchingDate, Time startTime, Time endTime, String cost, int fieldNum){
+        return new Field(stadium, matchingDate, startTime, endTime, cost, fieldNum);
     }
 
     @Override
@@ -55,11 +57,11 @@ public class Field {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Field field = (Field) o;
-        return Objects.equals(id, field.id) && Objects.equals(stadium, field.stadium) && Objects.equals(matchingDate, field.matchingDate) && Objects.equals(startTime, field.startTime) && Objects.equals(endTime, field.endTime) && Objects.equals(cost, field.cost);
+        return fieldNum == field.fieldNum && Objects.equals(id, field.id) && Objects.equals(stadium, field.stadium) && Objects.equals(matchingDate, field.matchingDate) && Objects.equals(startTime, field.startTime) && Objects.equals(endTime, field.endTime) && Objects.equals(cost, field.cost);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, stadium, matchingDate, startTime, endTime, cost);
+        return Objects.hash(id, stadium, matchingDate, startTime, endTime, cost, fieldNum);
     }
 }
