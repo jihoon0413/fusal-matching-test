@@ -2,6 +2,7 @@ package com.example.fusalmatching.domain;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 
@@ -21,6 +22,7 @@ public class MatchingRecord {
 
 
     @OneToMany(mappedBy = "matchingRecord")
+    @ToString.Exclude
     private Set<TeamMatching> teamMatching;
 
     @ManyToOne
@@ -32,22 +34,22 @@ public class MatchingRecord {
 
     private LocalTime confirmDate;
 
-    
+    @Setter
     private boolean confirm;
+    @Setter
     private boolean allRental;
 
 
     protected MatchingRecord() {}
 
-    private MatchingRecord(Set<TeamMatching> teamMatching, Stadium stadium, Field field) {
-        this.teamMatching = teamMatching;
+    private MatchingRecord(Stadium stadium, Field field) {
         this.stadium = stadium;
         this.field =field;
 
     }
 
-    public static MatchingRecord of(Set<TeamMatching> teamMatching, Stadium stadium, Field field) {
-        return new MatchingRecord(teamMatching, stadium, field);
+    public static MatchingRecord of(Stadium stadium, Field field) {
+        return new MatchingRecord(stadium, field);
     }
 
     @Override

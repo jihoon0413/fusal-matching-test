@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .antMatchers("/teams/login").permitAll()
                 .antMatchers("/teams/new").permitAll()
                 .antMatchers("/teams/**").permitAll()
+                .antMatchers("/matching/**").permitAll() //나중에 없애야함 개발의 편의를 위해 설정
 //                .antMatchers("/teams/test").hasRole("[USER]")
                 .anyRequest().authenticated()
                 .and()
