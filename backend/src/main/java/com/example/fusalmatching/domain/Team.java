@@ -40,7 +40,11 @@ public class Team extends AuditingFields implements UserDetails {
     @ToString.Exclude
     private final Set<TeamMatching> teamMatching = new LinkedHashSet<>();
 
+    @Setter private String captainName;
 
+    @Setter private String tel;
+
+    @Setter private String imgUrl;
 
     @Setter private int manner;
 
