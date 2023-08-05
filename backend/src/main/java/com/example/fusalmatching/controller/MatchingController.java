@@ -1,23 +1,27 @@
 package com.example.fusalmatching.controller;
 
 
+import com.example.fusalmatching.dto.request.MatchingApplyRequestDto;
+import com.example.fusalmatching.dto.request.MatchingCreateRequestDto;
+import com.example.fusalmatching.service.MatchingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/matching")
 @RestController
 public class MatchingController {
+    private final MatchingService matchingService;
 
     @PostMapping("/create")
-    public void createMatching() {
-        //처음 매칭 신청하는거
-        //field, team, stadium,
+    public void createMatching(@RequestBody MatchingCreateRequestDto matchingCreateRequestDto) {
+        matchingService.createMatching(matchingCreateRequestDto);
 
+    }
 
+    @PostMapping("/apply")
+    public void applyMatching(@RequestBody MatchingApplyRequestDto matchingApplyRequestDto) {
+        matchingService.applyMatching(matchingApplyRequestDto);
     }
 
     @PutMapping("/confirm")
