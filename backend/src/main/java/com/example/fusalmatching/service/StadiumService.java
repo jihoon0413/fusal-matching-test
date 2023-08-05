@@ -25,6 +25,7 @@ public class StadiumService {
     private final StadiumReviewRepository stadiumReviewRepository;
     private final MatchingRecordRepository matchingRecordRepository;
     private final TeamMatchingRepository teamMatchingRepository;
+    private final StadiumImageRepository stadiumImageRepository;
 
     @Transactional
     public List<StadiumResponseDto> getStadiumList() {
@@ -89,9 +90,30 @@ public class StadiumService {
         dto.setTime(stadium.getTime());
         dto.setCost(stadium.getCost());
         dto.setFieldCount(stadium.getFieldCount());
+        dto.setNoRest(stadium.isNoRest());
+        dto.setParking(stadium.isParking());
+        dto.setShower(stadium.isShower());
         dto.setEvaluationCount(stadium.getEvaluationCount());
         dto.setGpa(stadium.getGpa());
+
+        List<StadiumResponseDto.ImageDto> images = new ArrayList<>();
+
+        List<StadiumImage> images1 = stadiumImageRepository.findAllByStadiumId(stadium.getId());
+
+        for(int i = 0 ; i < images1.size() ; i++){
+            images.add(setImageDto(images1.get(i)));
+        }
+
+        dto.setImages(images);
+
         return dto;
+    }
+
+    public StadiumResponseDto.ImageDto setImageDto(StadiumImage stadiumImage) {
+        var imageDto = new StadiumResponseDto.ImageDto();
+        imageDto.setUrl(stadiumImage.getImageURl());
+
+        return imageDto;
     }
 
 
@@ -115,6 +137,7 @@ public class StadiumService {
             dto.setMatchingDate(String.valueOf(field.getMatchingDate()));
             dto.setStartTime(String.valueOf(field.getStartTime()));
             dto.setEndTime(String.valueOf(field.getEndTime()));
+            dto.setFieldNum(field.getFieldNum());
 
             if(matchingRecordRepository.findByField_Id(field.getId()).isPresent()){
                 Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findByField_Id(field.getId());
