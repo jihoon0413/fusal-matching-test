@@ -50,7 +50,7 @@ const MyPage = () => {
             <ul className='futurebreakdown_list'>
               <FutureBreakdown reserveSort='전체대여' fieldReview={false}/>
               <FutureBreakdown reserveSort='매칭' fieldReview={true} teamReview={false}/>
-              <FutureBreakdown reserveSort='매칭' fieldReview={true} teamReview={true}/>
+              <FutureBreakdown reserveSort='매칭' fieldReview={false} teamReview={true}/>
               <FutureBreakdown reserveSort='매칭' fieldReview={true} teamReview={true}/>
             </ul>
           </div>
