@@ -9,7 +9,7 @@ const FutureBreakdown = ({reserveSort, fieldReview, teamReview}) => {
   const [fieldReviewBtnText, setFieldReviewBtnText] = useState('')
   const [teamReviewBtnText, setTeamReviewBtnText] = useState('')
 
-  //const {futureBD,setFutureBD} = useContext(FutureBDContext)
+  const {futureBD,setFutureBD} = useContext(FutureBDContext)
   console.log(fieldReview, teamReview)
 
   useEffect(()=>{
@@ -32,13 +32,9 @@ const FutureBreakdown = ({reserveSort, fieldReview, teamReview}) => {
     }
   },[])
 
-  // const setFutureBDdata = ()=>{
-  //   if(review){
-  //     //리뷰가 있을 때
-  //     setFutureBD(true)
-  //   }
+  const setFutureBDdata = ()=>{
     
-  // }
+  }
 
   return (
     <li>
