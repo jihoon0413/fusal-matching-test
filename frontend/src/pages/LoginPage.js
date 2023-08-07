@@ -32,7 +32,6 @@ const LoginPage = () => {
           },
       })
     token = result.data.accessToken
-    console.log(token)
     setAccessToken(token)
     checkLogin()
     }catch(err){

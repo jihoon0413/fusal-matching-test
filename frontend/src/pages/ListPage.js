@@ -22,14 +22,19 @@ const ListPage = () => {
       }
     }
     fetchStadiums()
+    
   },[])
-
+  console.log(stadiums)
   return (
     <div className='center'>
       <div>구장의 자세한 정보가 궁금하다면? click !</div>
       {stadiums?.map(stadium =>(
         <InfoList 
           key={stadium.id}
+          images={stadium.images}
+          norest={stadium.norest}
+          parking={stadium.parking}
+          shower={stadium.shower}
           id={stadium.id}
           name={stadium.stadiumName}
           time={stadium.time}
