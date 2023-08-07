@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import '../css/components/MenuBar.css'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
@@ -7,13 +7,24 @@ const MenuBar = () => {
 
   const {rightLogin,setRightLogin} = useContext(UserContext)
 
+  const [click,setClick] = useState(false)
+
+  const clickMenu = (e)=>{
+    setClick(true)
+    if(click){
+      e.target.style.weight = '700'
+      setClick(false)
+    }else{
+      e.target.style.weight = '400'
+    }
+  }
 
   return (
     <div>
       <div className='menu'>
         <ul>
-          <li className='logo'><Link to='/'>광주 풋살</Link></li>
-          <li className='info'><Link to='/'>구장 정보</Link></li>
+          <li className='logo' onClick={(e)=>{clickMenu(e)}}><Link to='/'>광주 풋살</Link></li>
+          <li className='info'onClick={(e)=>{clickMenu(e)}}><Link to='/'>구장 정보</Link></li>
           <li className='reserve'><Link to='reserve'>예약하기</Link></li>
 
           {rightLogin 
