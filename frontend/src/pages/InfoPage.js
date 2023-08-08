@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StadiumInfoContext } from '../context/StadiumInfoContext'
 import ImgSwiper from '../components/ImgSwiper'
 import '../css/pages/InfoPage.css'
 import img from '../img/사장님.jpg'
 import Review from '../components/Review'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 import noresting from '../img/Group 100.png'
 // import rest from '../'
@@ -12,9 +12,10 @@ import yesparking from '../img/Group 101.png'
 import noparking from '../img/Group 102.png'
 import yesshower from '../img/Group 103.png'
 import noshower from '../img/Group 105.png'
-
+import axios from 'axios'
 
 const InfoPage = () => {
+
 
   // const {value} = useContext(StadiumInfoContext)
   const location = useLocation()
@@ -26,6 +27,26 @@ const InfoPage = () => {
   const time = location.state.time
   const phone = location.state.phone
   const address = location.state.address
+  let params = useParams()
+
+  const [reviews,setReviews] = useState()
+  useEffect(()=>{
+    const fetchReviews = async()=>{
+      try{
+        const result = await axios.get(`https://5b95-39-114-9-53.ngrok-free.app/stadiums/reviews?id=${params.index}`,{
+        headers: {
+              'Content-Type': `application/json`,
+              'ngrok-skip-browser-warning': '69420',
+            },
+        })
+        setReviews(result.data)
+      }catch(err){
+        console.log("err입니당~",err)
+      }
+    }
+    fetchReviews()
+  },[])
+  console.log(reviews)
   return (
     <div>
        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -63,16 +84,14 @@ const InfoPage = () => {
             <div className='review_head'>
               <div className='review_count' style={{width:"50px", height:"50px"}}></div>
               <div style={{fontSize:"20px", fontWeight:"700"}}>풋살장 리뷰</div>
-              <div style={{marginLeft:"5px"}}>+50</div>
+              <div style={{marginLeft:"5px"}}>+{reviews.length}</div>
             </div>
             <div className='reviews'>
-              <Review/>
-              <Review/>
-              <Review/>
-              <Review/>
-              <Review/>
-              <Review/>
-              <Review/>
+              {reviews?.map((review) =>(
+                (review.review)
+                ?<Review review={review}/>
+                :<></>
+              ))}
             </div>
           </div>
         </div>

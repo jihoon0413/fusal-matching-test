@@ -10,7 +10,7 @@
   color:white;
   text-align: center;
   padding:10px;
-  background-color:red;
+  background-color:#EE4242;
   border-radius:20px 20px 0 0;
 }
 .membership_top{
@@ -30,5 +30,11 @@
   height:40px;
   color:white;
   font-weight:600;
-  background-color: red;
+  background-color: #EE4242;
+}
+.check_btn{
+  background-Color:#EE4242;
+  color:white;
+  border-Radius:20px;
+
 }

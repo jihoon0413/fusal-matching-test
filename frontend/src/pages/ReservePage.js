@@ -58,7 +58,6 @@ const ReservePage = () => {
  
   const fetchField = async()=>{
     try{
-      console.log(stadiumValue,dateValue,startTimeValue)
       const result = await axios.get(`https://5b95-39-114-9-53.ngrok-free.app/stadiums/fields?id=${stadiumValue}&date=${dateValue}&time=${startTimeValue}:00`,{
       headers: {
             'Content-Type': `application/json`,
@@ -66,12 +65,10 @@ const ReservePage = () => {
           },
       })
       setField(result.data)
-      console.log(field)
     }catch(err){
       console.log("err입니당~",err)
     }
   }
-
   const changeStadiumValue = (e)=>{
     setStadiumValue(e.target.value)
   }

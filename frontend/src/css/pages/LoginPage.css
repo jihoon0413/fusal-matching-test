@@ -11,7 +11,7 @@
   color:white;
   text-align: center;
   padding:10px;
-  background-color:#FF7B7B;
+  background-color:#EE4242;
   border-radius:20px 20px 0 0;
 }
 input{
@@ -51,11 +51,11 @@ input{
   height:40px;
   color:white;
   font-weight:600;
-  background-color: red;
+  background-color: #EE4242;
   margin:20px auto;
 }
 .login_err{
   font-size:14px;
-  color:red;
+  color:#EE4242;
   text-align: center;
 }
