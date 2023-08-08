@@ -8,6 +8,10 @@ public class TeamSignDto {
     private String id;
     private String password;
     private String teamName;
+    private String captainName;
+    private String tel;
+    private String email;
+
 
 
 }
