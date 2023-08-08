@@ -4,6 +4,9 @@ import com.example.fusalmatching.config.jwt.JwtToken;
 import com.example.fusalmatching.config.jwt.JwtTokenProvider;
 import com.example.fusalmatching.domain.Team;
 import com.example.fusalmatching.domain.TeamReview;
+import com.example.fusalmatching.dto.request.CheckRandomNumDto;
+import com.example.fusalmatching.dto.request.CheckRequestDto;
+import com.example.fusalmatching.dto.request.TeamSignDto;
 import com.example.fusalmatching.dto.response.TeamResponseDto;
 import com.example.fusalmatching.dto.response.TeamReviewResponseDto;
 import com.example.fusalmatching.repository.TeamRepository;
@@ -32,10 +35,10 @@ public class TeamService {
     private final TeamReviewRepository teamReviewRepository;
 
     @Transactional
-    public void createTeam(String id, String password, String teamName) {
+    public void createTeam(TeamSignDto teamSignDto) {
 
 //        String hashedPassword = passwordEncoder.encode(password);           //TODO: 아이디, 닉네임 중복확인 해야함
-        Team newTeam = Team.of(id, teamName, password);
+        Team newTeam = Team.of(teamSignDto.getId(), teamSignDto.getTeamName(), teamSignDto.getPassword(), teamSignDto.getCaptainName(), teamSignDto.getTel(), teamSignDto.getEmail());
         teamRepository.save(newTeam);
 
     }
@@ -95,4 +98,18 @@ public class TeamService {
     }
 
 
+    public boolean checkId(CheckRequestDto id) {
+        return this.teamRepository.findById(id.getIdORNick()).isEmpty();
+    }
+
+    public boolean checkName(CheckRequestDto id) {
+        return this.teamRepository.findByTeamName(id.getIdORNick()).isEmpty();
+    }
+
+    public boolean checkNum(CheckRandomNumDto randomNum) {
+
+        return passwordEncoder.matches(randomNum.getUserWrite(), randomNum.getHashedNum());
+
+
+    }
 }
