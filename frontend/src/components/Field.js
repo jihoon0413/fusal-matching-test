@@ -6,8 +6,6 @@ import profile from '../img/ball.png'
 import { changeText } from '../helper/ChangeText'
 
 const Field = ({field,fieldName , endTime, startTime, date}) => {
-
-  console.log(field)
   const [reserveSort,setReserveSort] = useState()
   const [modalState,setModalState] = useState(false)
   const [hover,setHover] = useState('none')
@@ -29,14 +27,35 @@ const Field = ({field,fieldName , endTime, startTime, date}) => {
         <div className='field_main'>
           <img src={img} alt='field' className='field_img'/>
           {field.team
-          ?<><div className='matching_team' onMouseOver={()=>setHover('block')} onMouseOut={()=>setHover('none')}>
+          ?
+          (field.team[1]
+          ?<>
+            <div className='matching_team' onMouseOver={()=>setHover('block')} onMouseOut={()=>setHover('none')}>
               <img src={profile} style={{width:'80px',height:'80px',marginTop:'15px'}} alt='profile'/>
               <div className='teaminfo' style={{display:hover}}>
-                <div>팀명 : {field.team.teamName}</div>
-                <div>실력 : {changeText(field.team.skill)}</div>
-                <div>매너 : {changeText(field.team.manner)}</div>
+                <div>팀명 : {field.team[0].teamName}</div>
+                <div>실력 : {changeText(field.team[0].skill)}</div>
+                <div>매너 : {changeText(field.team[0].manner)}</div>
               </div>
-            </div><button className='matching_btn' onClick={MatchingReserve}>매칭 신청</button></>
+            </div>
+            <div className='matching_team' style={{left:'500px'}}onMouseOver={()=>setHover('block')} onMouseOut={()=>setHover('none')}>
+              <img src={profile} style={{width:'80px',height:'80px',marginTop:'15px'}} alt='profile'/>
+              <div className='teaminfo' style={{display:hover}}>
+                <div>팀명 : {field.team[1].teamName}</div>
+                <div>실력 : {changeText(field.team[1].skill)}</div>
+                <div>매너 : {changeText(field.team[1].manner)}</div>
+              </div>
+            </div>
+          </>
+          :<>
+            <div className='matching_team' onMouseOver={()=>setHover('block')} onMouseOut={()=>setHover('none')}>
+                <img src={profile} style={{width:'80px',height:'80px',marginTop:'15px'}} alt='profile'/>
+                <div className='teaminfo' style={{display:hover}}>
+                  <div>팀명 : {field.team[0].teamName}</div>
+                  <div>실력 : {changeText(field.team[0].skill)}</div>
+                  <div>매너 : {changeText(field.team[0].manner)}</div>
+                </div>
+              </div><button className='matching_btn' onClick={MatchingReserve}>매칭 신청</button></>)
           :<><button className='matching_btn' style={{top:'160px',left:'145px'}}onClick={MatchingReserve}>매칭 신청</button>
           <button className='matching_btn' onClick={MatchingReserve}>매칭 신청</button></>
           }
