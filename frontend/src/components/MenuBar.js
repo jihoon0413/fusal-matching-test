@@ -7,31 +7,36 @@ const MenuBar = () => {
 
   const {rightLogin,setRightLogin} = useContext(UserContext)
 
-  const [click,setClick] = useState(false)
+  const [firstWeight,setFirstWeight] = useState('700')
+  const [secondWeight,setSecondWeight] = useState('400')
+  
+  const firstClickMenu = ()=>{
+    setFirstWeight('700')
 
-  const clickMenu = (e)=>{
-    setClick(true)
-    if(click){
-      e.target.style.weight = '700'
-      setClick(false)
-    }else{
-      e.target.style.weight = '400'
-    }
+    setSecondWeight('400')
   }
-
+  const secondClickMenu = ()=>{
+    setFirstWeight('400')
+    setSecondWeight('700')
+  }
+  const loginClickMenu = ()=>{
+    setFirstWeight('400')
+    setSecondWeight('400')
+  }
+  
   return (
     <div>
       <div className='menu'>
         <ul>
-          <li className='logo' onClick={(e)=>{clickMenu(e)}}><Link to='/'>광주 풋살</Link></li>
-          <li className='info'onClick={(e)=>{clickMenu(e)}}><Link to='/'>구장 정보</Link></li>
-          <li className='reserve'><Link to='reserve'>예약하기</Link></li>
+          <li className='logo' onClick={firstClickMenu} ><Link to='/'>광주 풋살</Link></li>
+          <li className='info'onClick={firstClickMenu}><Link to='/' style={{fontWeight:firstWeight}}>구장 정보</Link></li>
+          <li className='reserve' onClick={secondClickMenu}><Link to='reserve' style={{fontWeight:secondWeight}}>예약하기</Link></li>
 
           {rightLogin 
           ?<div>
-            <button className='mypage'><Link to='/mypage' style={{color:'blue'}}>myPage</Link></button>
-            <li className='login'><button onClick={()=>{setRightLogin(false)}}>로그아웃</button></li></div> 
-          :<li className='login'><Link to='login'><button>로그인</button></Link></li>
+            <button className='mypage' onClick={loginClickMenu}><Link to='/mypage' style={{color:'blue'}}>myPage</Link></button>
+            <li className='login' onClick={loginClickMenu}><button onClick={()=>{setRightLogin(false)}}>로그아웃</button></li></div> 
+          :<li className='login' onClick={loginClickMenu}><Link to='login'><button>로그인</button></Link></li>
           }
         </ul>
       </div>

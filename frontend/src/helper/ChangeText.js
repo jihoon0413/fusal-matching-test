@@ -1,5 +1,6 @@
 export const changeText = (num)=>{
 
+  num = Number(num)
   num = Math.round(num)
   switch (num){
     case 1:
@@ -17,7 +18,7 @@ export const changeText = (num)=>{
     case 7:
       return "최상";
     default:
-      console.log('switch문 error입니다.')
+      console.log(num,'switch문 error입니다.')
   }
 }
 

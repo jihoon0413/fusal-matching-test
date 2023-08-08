@@ -56,6 +56,7 @@
   margin: 310px 0 0 10px;
 }
 .teaminfo{
+
   text-align:start;
   box-sizing: border-box;
   margin-top:15px;
@@ -63,4 +64,6 @@
   width:150px;
   height:90px;
   background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  color:white;
 }
