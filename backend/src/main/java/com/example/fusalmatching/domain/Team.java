@@ -44,6 +44,8 @@ public class Team extends AuditingFields implements UserDetails {
 
     @Setter private String tel;
 
+    @Setter private String email;
+
     @Setter private String imgUrl;
 
     @Setter private int manner;
@@ -59,14 +61,17 @@ public class Team extends AuditingFields implements UserDetails {
 
     protected Team() {};
 
-    private Team(String teamId, String teamName, String password) {
+    private Team(String teamId, String teamName, String password, String captainName, String tel, String email) {
         this.id = teamId;
         this.teamName = teamName;
         this.password = password;
+        this.captainName = captainName;
+        this.tel = tel;
+        this.email = email;
     }
 
-    public static Team of(String teamId, String teamName, String password) {
-        return new Team(teamId, teamName, password);
+    public static Team of(String teamId, String teamName, String password,  String captainName, String tel, String email) {
+        return new Team(teamId, teamName, password, captainName, tel, email);
     }
 
 
@@ -122,11 +127,11 @@ public class Team extends AuditingFields implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Team team = (Team) o;
-        return manner == team.manner && skill == team.skill && evaluationCount == team.evaluationCount && Objects.equals(id, team.id) && Objects.equals(password, team.password) && Objects.equals(teamName, team.teamName) && Objects.equals(teamReviews, team.teamReviews) && Objects.equals(teamMatching, team.teamMatching) && Objects.equals(roles, team.roles);
+        return manner == team.manner && skill == team.skill && evaluationCount == team.evaluationCount && Objects.equals(id, team.id) && Objects.equals(password, team.password) && Objects.equals(teamName, team.teamName) && Objects.equals(teamReviews, team.teamReviews) && Objects.equals(teamMatching, team.teamMatching) && Objects.equals(captainName, team.captainName) && Objects.equals(tel, team.tel) && Objects.equals(email, team.email) && Objects.equals(imgUrl, team.imgUrl) && Objects.equals(roles, team.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, password, teamName, teamReviews, teamMatching, manner, skill, evaluationCount, roles);
+        return Objects.hash(id, password, teamName, teamReviews, teamMatching, captainName, tel, email, imgUrl, manner, skill, evaluationCount, roles);
     }
 }
