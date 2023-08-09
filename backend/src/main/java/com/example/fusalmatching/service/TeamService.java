@@ -2,13 +2,17 @@ package com.example.fusalmatching.service;
 
 import com.example.fusalmatching.config.jwt.JwtToken;
 import com.example.fusalmatching.config.jwt.JwtTokenProvider;
+import com.example.fusalmatching.domain.MatchingRecord;
 import com.example.fusalmatching.domain.Team;
+import com.example.fusalmatching.domain.TeamMatching;
 import com.example.fusalmatching.domain.TeamReview;
 import com.example.fusalmatching.dto.request.CheckRandomNumDto;
 import com.example.fusalmatching.dto.request.CheckRequestDto;
 import com.example.fusalmatching.dto.request.TeamSignDto;
 import com.example.fusalmatching.dto.response.TeamResponseDto;
 import com.example.fusalmatching.dto.response.TeamReviewResponseDto;
+import com.example.fusalmatching.repository.MatchingRecordRepository;
+import com.example.fusalmatching.repository.TeamMatchingRepository;
 import com.example.fusalmatching.repository.TeamRepository;
 import com.example.fusalmatching.repository.TeamReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,6 +38,9 @@ public class TeamService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final TeamReviewRepository teamReviewRepository;
+    private final TeamMatchingRepository teamMatchingRepository;
+    private final MatchingRecordRepository matchingRecordRepository;
+    private final StadiumService stadiumService;
 
     @Transactional
     public void createTeam(TeamSignDto teamSignDto) {
@@ -72,9 +80,31 @@ public class TeamService {
         var dto = new TeamResponseDto();
         dto.setId(team.getId());
         dto.setTeamName(team.getTeamName());
+        dto.setCaptainName(team.getCaptainName());
+        dto.setTel(team.getTel());
+        dto.setImageUrl(team.getImgUrl());
         dto.setManner(team.getManner());
         dto.setSkill(team.getSkill());
+        dto.setMatchingRecordList(getMatchingRecordList(team.getId()));
         return dto;
+    }
+
+
+    private List<TeamResponseDto.MatchingRecordDto> getMatchingRecordList(String id) {
+
+        List<TeamMatching> teamMatchingList = teamMatchingRepository.findAllByTeam_Id(id);
+
+        List<TeamResponseDto.MatchingRecordDto> matchingRecordDtoList = new ArrayList<>();
+
+        var matchingRecordDto = new TeamResponseDto.MatchingRecordDto();
+
+        for(int i = 0 ; i < teamMatchingList.size() ; i++) {
+            Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findById(teamMatchingList.get(i).getMatchingRecord().getId());
+            MatchingRecord  matchingRecord = matchingRecord1.get();
+            matchingRecordDto.setField(stadiumService.getFieldResponseDto(matchingRecord.getField(), matchingRecord.getId()));
+            matchingRecordDtoList.add(matchingRecordDto);
+        }
+        return matchingRecordDtoList;
     }
 
 
@@ -97,11 +127,12 @@ public class TeamService {
         return dto;
     }
 
-
+    @Transactional
     public boolean checkId(CheckRequestDto id) {
         return this.teamRepository.findById(id.getIdORNick()).isEmpty();
     }
-
+    
+    @Transactional
     public boolean checkName(CheckRequestDto id) {
         return this.teamRepository.findByTeamName(id.getIdORNick()).isEmpty();
     }
