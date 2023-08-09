@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState} from 'react'
 import '../css/components/MenuBar.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 
 const MenuBar = () => {
 
   const {rightLogin,setRightLogin} = useContext(UserContext)
-
+  const navigate = useNavigate()
   const [firstWeight,setFirstWeight] = useState('700')
   const [secondWeight,setSecondWeight] = useState('400')
   
@@ -35,7 +35,7 @@ const MenuBar = () => {
           {rightLogin 
           ?<div>
             <button className='mypage' onClick={loginClickMenu}><Link to='/mypage' style={{color:'blue'}}>myPage</Link></button>
-            <li className='login' onClick={loginClickMenu}><button onClick={()=>{setRightLogin(false)}}>로그아웃</button></li></div> 
+            <li className='login' onClick={()=>{loginClickMenu(); navigate('/')}}><button onClick={()=>{setRightLogin(false)}}>로그아웃</button></li></div> 
           :<li className='login' onClick={loginClickMenu}><Link to='login'><button>로그인</button></Link></li>
           }
         </ul>

@@ -69,6 +69,9 @@ const ReservePage = () => {
       console.log("err입니당~",err)
     }
   }
+
+  console.log(field)
+
   const changeStadiumValue = (e)=>{
     setStadiumValue(e.target.value)
   }
@@ -130,7 +133,7 @@ const ReservePage = () => {
       {field?.map((field,index) =>{
         if(field){
           return(
-          <Field field={field}fieldName={index+1} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
+          <Field fetchField={fetchField}field={field}fieldName={index+1} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
         }     
         })}
     </div>
