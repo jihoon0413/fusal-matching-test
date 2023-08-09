@@ -48,10 +48,10 @@ const MyPage = () => {
             <div style={{display:'flex',alignItem:'center', fontSize:'1.2rem'}}><span class="material-symbols-outlined">select_check_box</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 지난 매칭 내역</span></div>
             <hr/>
             <ul className='futurebreakdown_list'>
-              <FutureBreakdown reserveSort='전체대여' review={false}/>
-              <FutureBreakdown reserveSort='매칭' review={true}/>
-              <FutureBreakdown reserveSort='매칭' review={true}/>
-              <FutureBreakdown reserveSort='매칭' review={true}/>
+              <FutureBreakdown reserveSort='전체대여' fieldReview={false}/>
+              <FutureBreakdown reserveSort='매칭' fieldReview={true} teamReview={false}/>
+              <FutureBreakdown reserveSort='매칭' fieldReview={false} teamReview={true}/>
+              <FutureBreakdown reserveSort='매칭' fieldReview={true} teamReview={true}/>
             </ul>
           </div>
       </div>
