@@ -10,7 +10,7 @@ const FutureBreakdown = ({reserveSort, fieldReview, teamReview}) => {
   const [teamReviewBtnText, setTeamReviewBtnText] = useState('')
 
   const {futureBD,setFutureBD} = useContext(FutureBDContext)
-  console.log(fieldReview, teamReview)
+  
 
   useEffect(()=>{
     if(fieldReview){
