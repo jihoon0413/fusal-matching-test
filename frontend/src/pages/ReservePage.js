@@ -65,15 +65,12 @@ const ReservePage = () => {
           },
       })
       setField(result.data)
-      
     }catch(err){
       console.log("err입니당~",err)
     }
-
-    console.log(field)
   }
 
-
+  console.log(field)
 
   const changeStadiumValue = (e)=>{
     setStadiumValue(e.target.value)
@@ -99,7 +96,7 @@ const ReservePage = () => {
           <div style={{fontWeight:"700", marginRight:"20px"}}>예약 일정</div>
           <div style={{display:"flex",alignItems:"center"}}>
             <span style={{fontSize:"30px", marginRight:"10px"}}className="material-symbols-outlined">sports_soccer</span>
-              <select value={id} onChange={changeStadiumValue}>
+              <select style={{fontSize:'16px'}}value={id} onChange={changeStadiumValue}>
                 {stadiums?.map(stadium=>(
                   <option value={stadium.id}>{stadium.stadiumName}</option>
                 ))}
@@ -108,7 +105,7 @@ const ReservePage = () => {
 
           <div style={{display:"flex",alignItems:"center"}}>
             <span style={{fontSize:"30px", marginRight:"10px"}} className="material-symbols-outlined">calendar_month</span>
-              <select onChange={changeDateValue}>
+              <select style={{fontSize:'16px'}} onChange={changeDateValue}>
                 {dates?.map(date=>(
                   <option>{date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}</option>
                 ))}
@@ -117,13 +114,13 @@ const ReservePage = () => {
                   
           <div style={{display:"flex",alignItems:"center"}}>
             <span style={{fontSize:"30px", marginRight:"10px"}} className="material-symbols-outlined">history</span>
-              <select onChange={changeStartTimeValue}>
+              <select onChange={changeStartTimeValue} style={{fontSize:'16px'}}>
                 {times?.map(time=>(
                   <option>{time}</option>
                 ))}
               </select>
-              ~
-              <select onChange={changeEndTimeValue}>
+              <div style={{margin:'10px', fontSize:'16px'}}>~</div>
+              <select onChange={changeEndTimeValue} style={{fontSize:'16px'}}>
                 {times?.map(time=>(
                   <option>{time}</option>
                 ))}
@@ -133,9 +130,12 @@ const ReservePage = () => {
       </div>
       <hr/>
       
-      <Field fieldName={"A"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
-      <Field fieldName={"B"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
-      <Field fieldName={"C"} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>
+      {field?.map((field,index) =>{
+        if(field){
+          return(
+          <Field fetchField={fetchField}field={field}fieldName={index+1} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
+        }     
+        })}
     </div>
     
     </>

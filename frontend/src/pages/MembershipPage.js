@@ -10,16 +10,41 @@ const MembershipPage = () => {
   const [checkpw, setCheckpw] = useState()
   const [id, setId] = useState()
   const [teamName, setTeamName] = useState()
+  const [captinName, setCaptinName] = useState()
+  const [tel,setTel] = useState()
+  const [email, setEmail] = useState()
+
+
   const [hidden, setHidden] = useState("hidden")
-  const fakeCheck = true
+  const [checkMent,setCheckMent] = useState("중복확인")
+
+  let DuplicationCheck
   const navigate = useNavigate()
 
-  const checkDuplication = ()=>{
-    if(fakeCheck){
-      setColor("green")
+  const checkDuplication = async(e)=>{
+      try{
+        DuplicationCheck = await axios.post("https://5b95-39-114-9-53.ngrok-free.app/teams/check-id",{
+          idORNick : id,
+        headers: {
+              'Content-Type': `application/json`,
+              'ngrok-skip-browser-warning': '69420',
+            },
+        })
+
+      }catch(err){
+        console.log("err입니당~",err)
+      }
+    console.log(DuplicationCheck)
+    if(DuplicationCheck.data){
+      setColor("#1FBB25")
+      setCheckMent('ID적합')
     }
     else{
-      setColor("red")
+      setColor("gray")
+      setCheckMent('ID존재')
+      e.target.style.backgroundColor = 'white'
+      e.target.style.border = '1px solid #EE4242'
+      e.target.style.color='#EE4242'
     }
   }
   useEffect(()=>{
@@ -38,12 +63,15 @@ const MembershipPage = () => {
           id : id,
           password : pw,
           teamName : teamName,
+          captinName:captinName,
+          tel:tel,
+          email:email,
       headers: {
             'Content-Type': `application/json`,
             'ngrok-skip-browser-warning': '69420',
           },
       })
-    navigate('/')
+    navigate('/login')
     }catch(err){
       console.log("err입니당~",err)
     }
@@ -59,7 +87,7 @@ const MembershipPage = () => {
           <div style={{display:"flex",alignItems:"center", position:"relative"}}>
             <span style={{fontSize:"30px"}}className="material-symbols-outlined">person</span>
             <input placeholder='팀 아이디' style={{color:`${color}`}} onChange={(e)=>{setId(e.target.value)}}/>
-            <button style={{position:"absolute", left:"470px"}} onClick={()=>{checkDuplication()}}>중복 확인</button>
+            <button className='check_btn'style={{position:"absolute", left:"470px"}} onClick={(e)=>{checkDuplication(e)}}>{checkMent}</button>
           </div>
 
           <div style={{display:"flex",alignItems:"center"}}>
@@ -80,14 +108,19 @@ const MembershipPage = () => {
 
           <div style={{display:"flex",alignItems:"center"}}>
             <span style={{fontSize:"30px"}}className="material-symbols-outlined">badge</span>
-            <input placeholder='주장 이름' />
+            <input placeholder='주장 이름' onChange={(e)=>{setCaptinName(e.target.value)}}/>
           </div>
 
           <div style={{display:"flex",alignItems:"center"}}>
             <span style={{fontSize:"30px"}}className="material-symbols-outlined">call</span>
-            <input placeholder='주장 전화번호'/>
+            <input placeholder='주장 전화번호' onChange={(e)=>{setTel(e.target.value)}}/>
           </div>
           
+          <div style={{display:"flex",alignItems:"center"}}>
+            <span style={{fontSize:"30px"}}className="material-symbols-outlined">email</span>
+            <input placeholder='주장 이메일'onChange={(e)=>{setEmail(e.target.value)}}/>
+          </div>
+
           <button className='btn_complete' onClick={fetchMembership}>완료</button>
         </div>
       </div>

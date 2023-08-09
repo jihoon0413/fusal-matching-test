@@ -22,6 +22,7 @@ const ListPage = () => {
       }
     }
     fetchStadiums()
+    
   },[])
 
   return (
@@ -30,6 +31,10 @@ const ListPage = () => {
       {stadiums?.map(stadium =>(
         <InfoList 
           key={stadium.id}
+          images={stadium.images}
+          norest={stadium.norest}
+          parking={stadium.parking}
+          shower={stadium.shower}
           id={stadium.id}
           name={stadium.stadiumName}
           time={stadium.time}

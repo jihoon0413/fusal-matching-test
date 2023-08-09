@@ -1,22 +1,74 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState,useEffect } from 'react'
 import '../css/components/Modal.css'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
+import axios from 'axios'
 
-const Modal = ({fieldName , endTime, startTime, date, setModalState, reserveSort}) => {
+const Modal = ({fetchField,field, fieldName , endTime, startTime, date, setModalState, reserveSort}) => {
 
-  const {rightLogin} = useContext(UserContext)
+  const {rightLogin,idData,token} = useContext(UserContext)
   const [title,setTitle] = useState("이 일정으로 예약할까요 ?")
   const [titleColor,setTitleColor] = useState("#EE8042")
   const [buttonState,setButtonState] = useState(true)
   const [display,setDisplay] = useState("block")
-
   const navigate = useNavigate()
+
+  console.log(fetchField)
+  let allRental
+    if(reserveSort === '전체 대여'){
+      allRental = true
+    }else{
+      allRental = false
+    }
+
+  console.log(field.matchingId,idData,field.fieldNum,field.stadiumId,allRental)
+  const oneTeamMatch = async()=>{
+      try{
+        const result = await axios.post("https://5b95-39-114-9-53.ngrok-free.app/matching/apply",{
+            matchingId:field.matchingId,
+            team: idData,
+            stadium:field.stadiumId,
+            field:field.id,
+        headers: {
+              'Content-Type': `application/json`,
+              'ngrok-skip-browser-warning': '69420',
+            },
+        })
+        console.log(result.data)
+      }catch(err){
+        console.log("err입니당~",err)
+      }
+    }
+  
+  const firstMatch = async()=>{
+    try{
+      const result = await axios.post("https://5b95-39-114-9-53.ngrok-free.app/matching/create",{
+          team: idData,
+          stadium:field.stadiumId,
+          field:field.id,
+          allRental:allRental,
+      headers: {
+            'Content-Type': `application/json`,
+            'ngrok-skip-browser-warning': '69420',
+          },
+      })
+      console.log(result.data)
+    }catch(err){
+      console.log("err입니당~",err)
+    }
+  }
   const matchingReserve = ()=>{
     if(rightLogin){
+      if(!field.team){
+        firstMatch()
+      }else{
+        oneTeamMatch()
+      }
       setTitle("예약이 완료되었습니다 !")
       setTitleColor("#4287EE")
       setButtonState(false)
+      
+
     }else{
       alert("예약은 로그인이 필요합니다");
       navigate('/login')}
@@ -25,6 +77,7 @@ const Modal = ({fieldName , endTime, startTime, date, setModalState, reserveSort
     console.log('취소')
     setModalState(false)
     setDisplay("none")
+    fetchField()
   }
   return (
     <div>

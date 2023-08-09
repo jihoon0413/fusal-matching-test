@@ -55,3 +55,15 @@
   font-size:1.1rem;
   margin: 310px 0 0 10px;
 }
+.teaminfo{
+
+  text-align:start;
+  box-sizing: border-box;
+  margin-top:15px;
+  padding:10px 0 0 10px ;
+  min-width:200px;
+  height:90px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  color:white;
+}
