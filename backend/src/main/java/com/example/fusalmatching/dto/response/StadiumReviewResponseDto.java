@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class StadiumReviewResponseDto {
     private int gpa;
     private String review;
+    private String writer;
 
 
 }

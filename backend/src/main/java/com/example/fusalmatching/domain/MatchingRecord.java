@@ -36,6 +36,7 @@ public class MatchingRecord {
 
     @Setter
     private boolean confirm;
+
     @Setter
     private boolean allRental;
 
