@@ -2,6 +2,7 @@ package com.example.fusalmatching.controller;
 
 
 import com.example.fusalmatching.dto.request.MatchingApplyRequestDto;
+import com.example.fusalmatching.dto.request.MatchingCancelRequestDto;
 import com.example.fusalmatching.dto.request.MatchingCreateRequestDto;
 import com.example.fusalmatching.service.MatchingService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,12 @@ public class MatchingController {
     @PostMapping("/apply")
     public void applyMatching(@RequestBody MatchingApplyRequestDto matchingApplyRequestDto) {
         matchingService.applyMatching(matchingApplyRequestDto);
+    }
+
+    @PostMapping("/cancel")
+    public void cancelMatching(@RequestBody MatchingCancelRequestDto matchingCancelRequestDto) {
+        matchingService.cancelMatching(matchingCancelRequestDto);
+
     }
     
 
