@@ -2,13 +2,17 @@ package com.example.fusalmatching.service;
 
 import com.example.fusalmatching.domain.*;
 import com.example.fusalmatching.dto.request.MatchingApplyRequestDto;
+import com.example.fusalmatching.dto.request.MatchingCancelRequestDto;
 import com.example.fusalmatching.dto.request.MatchingCreateRequestDto;
 import com.example.fusalmatching.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 @RequiredArgsConstructor
 @Service
@@ -37,6 +41,7 @@ public class MatchingService {
         MatchingRecord matchingRecord = MatchingRecord.of(stadium, field);
         matchingRecord.setAllRental(false);
         if(matchingCreateRequestDto.isAllRental()){
+            matchingRecord.setAllRental(true);
             matchingRecord.setConfirm(true);
         }
         matchingRecordRepository.save(matchingRecord);
@@ -63,4 +68,26 @@ public class MatchingService {
     }
 
 
+    @Transactional
+    public void cancelMatching(MatchingCancelRequestDto matchingCancelRequestDto) {
+        List<TeamMatching> teamMatchingList = teamMatchingRepository.findAllByMatchingRecord_Id(matchingCancelRequestDto.getMatchingId());
+
+        if(teamMatchingList.size() == 2) {
+            for (TeamMatching teamMatching : teamMatchingList) {
+                if (Objects.equals(matchingCancelRequestDto.getTeamId(), teamMatching.getTeam().getId())) {
+                    teamMatchingRepository.delete(teamMatching);
+                }
+            }
+          Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findById(matchingCancelRequestDto.getMatchingId());
+          MatchingRecord matchingRecord = matchingRecord1.get();
+          matchingRecord.setConfirm(false);
+          matchingRecordRepository.save(matchingRecord);
+        } else if (teamMatchingList.size() == 1) {
+            teamMatchingRepository.delete(teamMatchingList.get(0));
+            matchingRecordRepository.deleteById(matchingCancelRequestDto.getMatchingId());
+
+        }
+
+
+    }
 }
