@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [pw,setPw] = useState()
   const [hidden,setHidden] = useState("hidden")
   const navigate = useNavigate()
-  const {rightLogin,setRightLogin,setAccessToken} = useContext(UserContext)
+  const {rightLogin,setRightLogin,setAccessToken,setIdData,idData} = useContext(UserContext)
 
   const saveId = (e)=>{
     setId(e.target.value)
@@ -33,6 +33,8 @@ const LoginPage = () => {
       })
     token = result.data.accessToken
     setAccessToken(token)
+    setIdData(result.data.id)
+
     checkLogin()
     }catch(err){
       console.log("err입니당~",err)
