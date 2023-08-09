@@ -4,14 +4,12 @@ import com.example.fusalmatching.domain.*;
 import com.example.fusalmatching.dto.response.FieldResponseDto;
 import com.example.fusalmatching.dto.response.StadiumResponseDto;
 import com.example.fusalmatching.dto.response.StadiumReviewResponseDto;
-import com.example.fusalmatching.dto.response.TeamReviewResponseDto;
 import com.example.fusalmatching.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,6 +48,7 @@ public class StadiumService {
         var dto = new StadiumReviewResponseDto();
         dto.setGpa(stadiumReview.getGpa());
         dto.setReview(stadiumReview.getReview());
+        dto.setWriter(stadiumReview.getCreatedBy());
         return dto;
     }
 
@@ -129,20 +128,22 @@ public class StadiumService {
 
     public FieldResponseDto compareDate(Field field, Date date, Time time) {
 
-
-
         if(Objects.equals(String.valueOf(date), String.valueOf(field.getMatchingDate())) && Objects.equals(String.valueOf(time), String.valueOf(field.getStartTime()))) {
             var dto =new FieldResponseDto();
             dto.setId(field.getId());
+            dto.setStadiumId(field.getStadium().getId());
+            dto.setStadiumName(field.getStadium().getStadiumName());
             dto.setMatchingDate(String.valueOf(field.getMatchingDate()));
             dto.setStartTime(String.valueOf(field.getStartTime()));
             dto.setEndTime(String.valueOf(field.getEndTime()));
             dto.setFieldNum(field.getFieldNum());
 
+
             if(matchingRecordRepository.findByField_Id(field.getId()).isPresent()){
                 Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findByField_Id(field.getId());
                 MatchingRecord matchingRecord = matchingRecord1.get();
                 dto.setMatchingId(matchingRecord.getId());
+                dto.setAllRental(matchingRecord.isAllRental());
 
                 List<FieldResponseDto.TeamDto> teams = new ArrayList<>();
 
@@ -160,13 +161,43 @@ public class StadiumService {
         return null;
     }
 
+    public FieldResponseDto getFieldResponseDto(Field field, Long matchingId) {
+
+
+            var dto =new FieldResponseDto();
+            dto.setId(field.getId());
+            dto.setStadiumId(field.getStadium().getId());
+            dto.setStadiumName(field.getStadium().getStadiumName());
+            dto.setMatchingDate(String.valueOf(field.getMatchingDate()));
+            dto.setStartTime(String.valueOf(field.getStartTime()));
+            dto.setEndTime(String.valueOf(field.getEndTime()));
+            dto.setFieldNum(field.getFieldNum());
+            dto.setMatchingId(matchingId);
+            dto.setAllRental(matchingRecordRepository.findById(matchingId).get().isAllRental());
+
+            List<FieldResponseDto.TeamDto> teams = new ArrayList<>();
+            List<TeamMatching> teamMatching1 = teamMatchingRepository.findAllByMatchingRecord_Id(matchingId);
+
+            for(int i = 0 ; i < teamMatching1.size() ; i++) {
+                teams.add(setTeamDto(teamMatching1.get(i)));
+            }
+            dto.setTeam(teams);
+
+
+
+            return dto;
+    }
+
+
     public FieldResponseDto.TeamDto setTeamDto(TeamMatching teamMatching) {
         var teamDto = new FieldResponseDto.TeamDto();
         Team team = teamMatching.getTeam();
                 teamDto.setId(String.valueOf(team.getId()));
                 teamDto.setTeamName(team.getTeamName());
+                teamDto.setImageUrl(team.getImgUrl());
                 teamDto.setManner(team.getManner());
                 teamDto.setSkill(team.getSkill());
+                teamDto.setTeamMatchingId(teamMatching.getId());
         return teamDto;
     }
 }

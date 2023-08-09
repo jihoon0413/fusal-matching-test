@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface TeamMatchingRepository extends JpaRepository<TeamMatching, Long> {
     List<TeamMatching> findAllByMatchingRecord_Id(Long id);
+    List<TeamMatching> findAllByTeam_Id(String id);
+    void deleteByTeam_Id(String id);
 }
