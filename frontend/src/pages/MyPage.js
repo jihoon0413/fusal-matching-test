@@ -1,13 +1,32 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../css/pages/MyPage.css'
 import NowBreakdown from '../components/NowBreakdown'
 import FutureBreakdown from '../components/FutureBreakdown'
 import { UserContext } from '../context/UserContext'
+import axios from 'axios'
+import { changeText } from '../helper/ChangeText'
 
 const MyPage = () => {
 
-  const {accessToken} = useContext(UserContext)
-
+  const {accessToken,idData} = useContext(UserContext)
+  const [team,setTeam] = useState()
+  useEffect(()=>{
+    const teamFetch = async()=>{
+      try{
+        const result = await axios.get(`https://5b95-39-114-9-53.ngrok-free.app/teams?id=${idData}`,{
+        headers: {
+              'Content-Type': `application/json`,
+              'ngrok-skip-browser-warning': '69420',
+            },
+        })
+        setTeam(result.data)
+      }catch(err){
+        console.log("err입니당~",err)
+      }
+    }
+    teamFetch()
+  },[])
+  console.log(team)
 
   return (
     <div className='center'>
@@ -18,11 +37,11 @@ const MyPage = () => {
           <div className='introduce'>
             <div className='profile'></div>
             <ul style={{display:'block'}}>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>팀명</span><span style={{color:'#adadad80'}}>| </span><span>맥시멈스</span></li>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>주장</span><span style={{color:'#adadad80'}}>| </span><span>손흥민</span></li>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>전화번호</span><span style={{color:'#adadad80'}}>| </span><span>010-1234-5678</span></li>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>실력</span><span style={{color:'#adadad80'}}>| </span><span>최상</span></li>
-              <li style={{marginBottom:'3px'}}><span style={{display:'inline-block',width:'70px'}}>매너</span><span style={{color:'#adadad80'}}>| </span><span>최상</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>팀명</span><span style={{color:'#adadad80'}}>| </span><span>{team?.teamName}</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>주장</span><span style={{color:'#adadad80'}}>| </span><span>{team?.captainName}</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>전화번호</span><span style={{color:'#adadad80'}}>| </span><span>{team?.tel}</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>실력</span><span style={{color:'#adadad80'}}>| </span><span>{changeText(Number(team?.skill))}</span></li>
+              <li style={{marginBottom:'3px'}}><span style={{display:'inline-block',width:'70px'}}>매너</span><span style={{color:'#adadad80'}}>| </span><span>{changeText(Number(team?.manner))}</span></li>
             </ul>
           </div>
           <div style={{display:'flex',alignItem:'center', fontSize:'1.2rem'}}><span className="material-symbols-outlined">rewarded_ads</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 수상 경력</span></div>
