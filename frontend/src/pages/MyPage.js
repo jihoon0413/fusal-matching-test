@@ -10,6 +10,11 @@ const MyPage = () => {
 
   const {accessToken,idData} = useContext(UserContext)
   const [team,setTeam] = useState()
+  const date =  new Date()
+  const year = date.getFullYear()
+  const month = date.getMonth()+1
+  const day = date.getDate()
+  
   useEffect(()=>{
     const teamFetch = async()=>{
       try{
@@ -26,7 +31,11 @@ const MyPage = () => {
     }
     teamFetch()
   },[])
+
   console.log(team)
+  
+  console.log(year,month,day)
+
 
   return (
     <div className='center'>
@@ -58,8 +67,29 @@ const MyPage = () => {
             <div style={{display:'flex',alignItem:'center',fontSize:'1.2rem'}}><span class="material-symbols-outlined">indeterminate_check_box</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 현재 매칭 내역</span></div>
             <hr/>
             <ul className='nowbreakdown_list'>
-              <NowBreakdown/>
-              <NowBreakdown/>
+
+            {team?.matchingRecordList.map((matchingRecord)=>{
+              let matYear = matchingRecord?.field.matchingDate.slice(0,4)
+              let matMonth = matchingRecord?.field.matchingDate.slice(5,7)
+              let matDay = matchingRecord?.field.matchingDate.slice(8,10)
+              if(Number(matYear)>=year || Number(matMonth)>=month){
+                if(Number(matDay)>day){
+                  return (<NowBreakdown 
+                    date={matchingRecord?.field.matchingDate} 
+                    stadium={matchingRecord?.field.stadiumName} 
+                    fieldNum={matchingRecord?.field.fieldNum} 
+                    allRental={matchingRecord?.field.allRental}
+                    team={matchingRecord?.field?.team}
+                    startTime={matchingRecord?.field.startTime}
+                    endTime={matchingRecord?.field.endTime}
+                    />)
+                }
+              }
+              else{
+                console.log(matYear,matMonth,matDay)
+              }
+            }
+            )}
             </ul>
           </div>
 
