@@ -28,7 +28,7 @@ const InfoPage = () => {
   const phone = location.state.phone
   const address = location.state.address
   let params = useParams()
-
+  
   const [reviews,setReviews] = useState()
   useEffect(()=>{
     const fetchReviews = async()=>{
@@ -82,9 +82,9 @@ const InfoPage = () => {
           </div>
           <div className='infos_review'>
             <div className='review_head'>
-              <div className='review_count' style={{width:"50px", height:"50px"}}></div>
+              <div className='review_count' style={{width:"50px", height:"50px"}}><span class="material-symbols-outlined">rate_review</span></div>
               <div style={{fontSize:"20px", fontWeight:"700"}}>풋살장 리뷰</div>
-              <div style={{marginLeft:"5px"}}>+{reviews.length}</div>
+              <div style={{marginLeft:"5px"}}>+{reviews?.length}</div>
             </div>
             <div className='reviews'>
               {reviews?.map((review) =>(
