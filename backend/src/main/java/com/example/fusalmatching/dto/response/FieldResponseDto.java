@@ -19,6 +19,7 @@ public class FieldResponseDto {
     private String endTime;
     private Long matchingId;
     private int fieldNum;
+    private boolean confirm;
     private boolean allRental;
     private List<TeamDto> team;
 
@@ -32,6 +33,8 @@ public class FieldResponseDto {
         private int manner;
         private int skill;
         private Long teamMatchingId;
+        private boolean evalOpposite;
+        private boolean evalStadium;
 
 
     }

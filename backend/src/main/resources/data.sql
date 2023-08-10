@@ -272,11 +272,11 @@ insert into stadium (field_count, gpa, stadium_name, address, tel, time, cost, n
 
 
 --field
-insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (89672, '2022-11-10', '2023-02-02 18:28:28', '2023-04-24 15:29:50', 36, 4);
-insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (73652, '2023-05-15', '2023-03-13 14:33:17', '2023-06-15 23:03:51', 5, 3);
+insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (89672, '2022-08-25', '18:00:00', '20:00:00', 7, 1);
+insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (73652, '2022-08-25', '18:00:00', '20:00:00', 7, 2);
 insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (87167, '2023-02-07', '2023-01-11 02:33:12', '2023-01-27 11:19:31', 16, 1);
 insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (51353, '2023-02-07', '2022-11-08 13:07:58', '2023-02-18 10:57:58', 41, 5);
-insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (77298, '2022-11-21', '2022-11-12 01:47:48', '2022-11-27 12:10:09', 14, 4);
+insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (77298, '2022-08-25', '18:00:00', '20:00:00', 7, 3);
 insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (80676, '2023-03-07', '2022-10-02 13:28:48', '2023-02-28 16:10:05', 15, 1);
 insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (78031, '2023-04-16', '2022-11-14 10:18:05', '2023-03-17 14:39:25', 41, 3);
 insert into field (cost, matching_date, start_time, end_time, stadium_id, field_num) values (86800, '2022-12-15', '2023-02-17 15:39:12', '2022-12-27 06:42:36', 45, 5);
@@ -836,7 +836,7 @@ insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_re
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (28, 114, '2022-12-29 02:44:43', false, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (3, 46, '2023-01-24 22:56:43', true, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (44, 89, '2022-10-24 20:11:12', false, true);
-insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (15, 2, '2022-08-09 00:53:31', false, false);
+insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (7, 2, '2022-08-09 00:53:31', true, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (13, 115, '2023-03-10 22:53:26', false, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (30, 81, '2023-04-03 19:40:05', false, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (7, 3, '2022-08-30 21:56:54', false, true);
@@ -849,7 +849,7 @@ insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_re
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (31, 124, '2023-05-17 23:32:24', false, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (10, 70, '2023-05-19 06:40:48', false, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (40, 32, '2022-12-26 16:26:39', false, true);
-insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (15, 5, '2023-04-26 16:11:53', false, false);
+insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (7, 5, '2023-04-26 16:11:53', false, false);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (39, 28, '2022-11-25 10:06:04', true, true);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (30, 12, '2022-12-17 21:42:31', false, true);
 insert into matching_record (stadium_id, field_id, confirm_date, confirm, all_rental) values (21, 94, '2022-11-30 12:42:04', true, true);
@@ -1046,6 +1046,9 @@ insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stad
 insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (13, 21, false, true);
 insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (6, 42, true, false);
 insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (5, 6, false, false);
+insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values ('aabb', 55, false, false);
+insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (1, 55, false, false);
+insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values ('aabb', 68, false, false);
 
 
 

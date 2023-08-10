@@ -143,6 +143,7 @@ public class StadiumService {
                 Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findByField_Id(field.getId());
                 MatchingRecord matchingRecord = matchingRecord1.get();
                 dto.setMatchingId(matchingRecord.getId());
+                dto.setConfirm(matchingRecord.isConfirm());
                 dto.setAllRental(matchingRecord.isAllRental());
 
                 List<FieldResponseDto.TeamDto> teams = new ArrayList<>();
@@ -173,6 +174,7 @@ public class StadiumService {
             dto.setEndTime(String.valueOf(field.getEndTime()));
             dto.setFieldNum(field.getFieldNum());
             dto.setMatchingId(matchingId);
+            dto.setConfirm(matchingRecordRepository.findById(matchingId).get().isConfirm());
             dto.setAllRental(matchingRecordRepository.findById(matchingId).get().isAllRental());
 
             List<FieldResponseDto.TeamDto> teams = new ArrayList<>();
@@ -198,6 +200,8 @@ public class StadiumService {
                 teamDto.setManner(team.getManner());
                 teamDto.setSkill(team.getSkill());
                 teamDto.setTeamMatchingId(teamMatching.getId());
+                teamDto.setEvalOpposite(teamMatching.isEvalOpposite());
+                teamDto.setEvalStadium(teamMatching.isEvalStadium());
         return teamDto;
     }
 }
