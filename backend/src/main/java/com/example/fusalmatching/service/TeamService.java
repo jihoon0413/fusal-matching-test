@@ -89,19 +89,20 @@ public class TeamService {
         return dto;
     }
 
-
+    @Transactional
     private List<TeamResponseDto.MatchingRecordDto> getMatchingRecordList(String id) {
 
         List<TeamMatching> teamMatchingList = teamMatchingRepository.findAllByTeam_Id(id);
 
         List<TeamResponseDto.MatchingRecordDto> matchingRecordDtoList = new ArrayList<>();
 
-        var matchingRecordDto = new TeamResponseDto.MatchingRecordDto();
+
 
         for(int i = 0 ; i < teamMatchingList.size() ; i++) {
-            Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findById(teamMatchingList.get(i).getMatchingRecord().getId());
-            MatchingRecord  matchingRecord = matchingRecord1.get();
-            matchingRecordDto.setField(stadiumService.getFieldResponseDto(matchingRecord.getField(), matchingRecord.getId()));
+            var matchingRecordDto = new TeamResponseDto.MatchingRecordDto();
+//            Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findById(teamMatchingList.get(i).getMatchingRecord().getId());
+//            MatchingRecord  matchingRecord = matchingRecord1.get();
+            matchingRecordDto.setField(stadiumService.getFieldResponseDto(teamMatchingList.get(i).getMatchingRecord().getField(), teamMatchingList.get(i).getMatchingRecord().getId()));
             matchingRecordDtoList.add(matchingRecordDto);
         }
         return matchingRecordDtoList;

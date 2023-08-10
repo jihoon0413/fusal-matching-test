@@ -1,6 +1,7 @@
 package com.example.fusalmatching.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -21,8 +22,10 @@ public class TeamMatching {
     @ManyToOne
     private MatchingRecord matchingRecord;
 
+    @Setter
     private boolean evalOpposite;
 
+    @Setter
     private boolean evalStadium;
 
     protected TeamMatching(){}
