@@ -23,7 +23,7 @@ const MembershipPage = () => {
 
   const checkDuplication = async(e)=>{
       try{
-        DuplicationCheck = await axios.post("https://5b95-39-114-9-53.ngrok-free.app/teams/check-id",{
+        DuplicationCheck = await axios.post("https://6f2b-121-147-100-85.ngrok-free.app/teams/check-id",{
           idORNick : id,
         headers: {
               'Content-Type': `application/json`,
@@ -59,7 +59,7 @@ const MembershipPage = () => {
   
   const fetchMembership = async()=>{
     try{
-      await axios.post("https://5b95-39-114-9-53.ngrok-free.app/teams/new",{
+      await axios.post("https://6f2b-121-147-100-85.ngrok-free.app/teams/new",{
           id : id,
           password : pw,
           teamName : teamName,
