@@ -21,10 +21,9 @@ const Modal = ({fetchField,field, fieldName , endTime, startTime, date, setModal
       allRental = false
     }
 
-  console.log(field.matchingId,idData,field.fieldNum,field.stadiumId,allRental)
   const oneTeamMatch = async()=>{
       try{
-        const result = await axios.post("https://5b95-39-114-9-53.ngrok-free.app/matching/apply",{
+        const result = await axios.post("https://6f2b-121-147-100-85.ngrok-free.app/matching/apply",{
             matchingId:field.matchingId,
             team: idData,
             stadium:field.stadiumId,
@@ -42,7 +41,7 @@ const Modal = ({fetchField,field, fieldName , endTime, startTime, date, setModal
   
   const firstMatch = async()=>{
     try{
-      const result = await axios.post("https://5b95-39-114-9-53.ngrok-free.app/matching/create",{
+      const result = await axios.post("https://6f2b-121-147-100-85.ngrok-free.app/matching/create",{
           team: idData,
           stadium:field.stadiumId,
           field:field.id,

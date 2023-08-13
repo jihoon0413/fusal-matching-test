@@ -10,7 +10,7 @@ import noresting from '../img/Group 100.png'
 // import rest from '../'
 import yesparking from '../img/Group 101.png'
 import noparking from '../img/Group 102.png'
-import yesshower from '../img/Group 103.png'
+import yesshower from '../img/Group 107.png'
 import noshower from '../img/Group 105.png'
 import axios from 'axios'
 
@@ -33,7 +33,7 @@ const InfoPage = () => {
   useEffect(()=>{
     const fetchReviews = async()=>{
       try{
-        const result = await axios.get(`https://5b95-39-114-9-53.ngrok-free.app/stadiums/reviews?id=${params.index}`,{
+        const result = await axios.get(`https://6f2b-121-147-100-85.ngrok-free.app/stadiums/reviews?id=${params.index}`,{
         headers: {
               'Content-Type': `application/json`,
               'ngrok-skip-browser-warning': '69420',
