@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react"
 import '../css/components/FutureBreakdown.css'
 import { FutureBDContext } from "../context/FutureBreakDownContext"
 
-const FutureBreakdown = ({team,date,stadium,fieldNum,allRental,startTime,endTime}) => {
+const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,startTime,endTime}) => {
 
   const [fieldReveiwBtnBack, setFieldReiviewBtnBack] = useState('')
   const [teamReveiwBtnBack, setTeamReiviewBtnBack] = useState('')
   const [fieldReviewBtnText, setFieldReviewBtnText] = useState('')
   const [teamReviewBtnText, setTeamReviewBtnText] = useState('')
 
-  const {futureBD,setFutureBD} = useContext(FutureBDContext)
+  const {setBDTitle,setFutureBD,setMatchingId,setOppositeTeam,setStadium} = useContext(FutureBDContext)
 
   useEffect(()=>{
     if(team[0]?.evalStadium){
@@ -33,15 +33,24 @@ const FutureBreakdown = ({team,date,stadium,fieldNum,allRental,startTime,endTime
 
   const futureClick = ()=>{
     setFutureBD(true)
+    setBDTitle(
+      `${allRental
+        ?`[ 전체 대여 ]`
+        :`${date} ${stadiumName} - ${fieldNum}구장 [ vs ${team[1]?.teamName}] ${startTime.slice(0,5)} ~ ${endTime.slice(0,5)}`
+        }`
+    )
+    setMatchingId(team[0]?.teamMatchingId)
+    setStadium(stadiumId)
+    setOppositeTeam(team[1]?.id)
   }
 
   return (
     <li>
       <span style={{margin:'8px'}}>{date}</span> 
-      {stadium} - {fieldNum}구장 
+      {stadiumName} - {fieldNum}구장 
       {allRental
       ?`[ 전체 대여 ]`
-      :<>[ vs {team[1]?team[1].teamName:<span style={{fontWeight:'700',color:'red'}}> ? </span>}]</>
+      :<>[ vs {team[1]?team[1].teamName:<span style={{fontWeight:'700',color:'red'}}> ? </span>}] </>
       }
       {startTime.slice(0,5)} ~ {endTime.slice(0,5)}
       {(allRental ===true)
