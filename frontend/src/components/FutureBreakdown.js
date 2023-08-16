@@ -9,7 +9,7 @@ const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,st
   const [fieldReviewBtnText, setFieldReviewBtnText] = useState('')
   const [teamReviewBtnText, setTeamReviewBtnText] = useState('')
 
-  const {setBDTitle,setFutureBD,setMatchingId,setOppositeTeam,setStadium} = useContext(FutureBDContext)
+  const {setBDTitle,setFutureBD,setMatchingId,setOppositeTeam,setStadium,setEvalOpposite,setEvalStadium} = useContext(FutureBDContext)
 
   useEffect(()=>{
     if(team[0]?.evalStadium){
@@ -42,6 +42,8 @@ const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,st
     setMatchingId(team[0]?.teamMatchingId)
     setStadium(stadiumId)
     setOppositeTeam(team[1]?.id)
+    setEvalOpposite(team[0]?.evalOpposite)
+    setEvalStadium(team[0]?.evalStadium)
   }
 
   return (
