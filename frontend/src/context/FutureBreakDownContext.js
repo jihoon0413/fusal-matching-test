@@ -9,9 +9,18 @@ export default function FutureBDProvider({children}){
   const [matchingId,setMatchingId] = useState()
   const [oppositeTeam,setOppositeTeam] = useState()
   const [stadium,setStadium] = useState()
+  const [evalOpposite, setEvalOpposite] = useState()
+  const [evalStadium, setEvalStadium] = useState()
   return(
     <>
-      <FutureBDContext.Provider value={{futureBD,setFutureBD,BDtitle,setBDTitle,matchingId,setMatchingId,oppositeTeam,setOppositeTeam,stadium,setStadium}}>
+      <FutureBDContext.Provider value={{futureBD,setFutureBD,
+        BDtitle,setBDTitle,
+        matchingId,setMatchingId,
+        oppositeTeam,setOppositeTeam,
+        stadium,setStadium,
+        evalOpposite,setEvalOpposite,
+        evalStadium,setEvalStadium
+        }}>
         {children}
       </FutureBDContext.Provider>
     </>

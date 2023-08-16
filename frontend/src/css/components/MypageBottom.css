@@ -1,10 +1,11 @@
 .mypage_bottom_toggle{
   background-color:#dedede49;
-  width:1300px;
+  width:1400px;
   height:300px;
   position:fixed;
   bottom:0;
   border-radius: 30px 30px 0 0;
+  margin-left:-50px;
 }
 .toggle_btn{
   width:100px;
@@ -25,11 +26,13 @@
   bottom:0;
 }
 .stadium_review{
-  margin-left:70px;
+  margin-left:50px;
   width:650px;
 }
 .team_review{
-  width:750px;
+  margin-left:50px;
+  width:800px;
+
 }
 .bottom_ul{
   display:block;
@@ -51,46 +54,66 @@
 .title{
   font-weight: 700;
   font-size:1.2rem;
-  margin-right:30px;
-}
-.point_btn{
-  border-radius: 50%;
   margin-right:50px;
 }
 .points{
   position: relative;
+  display:flex;
 }
 .point{
   margin-top:30px;
   display:flex;
   align-items: center;
-  
 }
+
+.radio_input{
+  appearance:none;
+  margin:0px 45px 5px 0px;
+  border-radius: 50%;
+  background-color: #D9D9D9;
+  border:none;
+}
+.radio_input:checked{
+  background-color: #4287EE;
+}
+
 .pointbar{
-  width:450px;
-  border:1px solid #D9D9D9;
+  width:400px;
+  border:.5px solid #D9D9D9;
   position:absolute;
-  top:5px;
-  left:100px;
+  top:35px;
+  left:120px;
+  z-index:-2;
 }
 .point_ment{
   display:flex;
   font-size:0.7rem;
   color:#919191;
-  gap:150px;
-  margin-left:60px;
+  gap:115px;
+  margin-left:80px;
 }
 .pointbar2{
-  width:450px;
-  border:1px solid #D9D9D9;
+  width:400px;
+  border:.5px solid #D9D9D9;
   position:absolute;
-  top:85px;
-  left:100px;
+  top:110px;
+  left:120px;
+  z-index: -2;
 }
 .point_ment2{
   display:flex;
   font-size:0.7rem;
   color:#919191;
-  gap:170px;
-  margin-left:70px;
+  gap:135px;
+  margin-left:90px;
+}
+.reveiw_btn{
+  width:80px;
+  height:100px;
+  margin:30px 0 0 8px;
+  background-color: #4287EE;
+  color:white;
+  font-size:1.2rem;
+  font-weight: 700;
+  border-radius: 10px;
 }
