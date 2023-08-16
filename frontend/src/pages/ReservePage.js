@@ -40,7 +40,7 @@ const ReservePage = () => {
   useEffect(()=>{
     const fetchStadiums = async()=>{
       try{
-        const result = await axios.get("https://5b95-39-114-9-53.ngrok-free.app/stadiums",{
+        const result = await axios.get("https://6f2b-121-147-100-85.ngrok-free.app/stadiums",{
         headers: {
               'Content-Type': `application/json`,
               'ngrok-skip-browser-warning': '69420',
@@ -58,7 +58,7 @@ const ReservePage = () => {
  
   const fetchField = async()=>{
     try{
-      const result = await axios.get(`https://5b95-39-114-9-53.ngrok-free.app/stadiums/fields?id=${stadiumValue}&date=${dateValue}&time=${startTimeValue}:00`,{
+      const result = await axios.get(`https://6f2b-121-147-100-85.ngrok-free.app/stadiums/fields?id=${stadiumValue}&date=${dateValue}&time=${startTimeValue}:00`,{
       headers: {
             'Content-Type': `application/json`,
             'ngrok-skip-browser-warning': '69420',
@@ -69,8 +69,6 @@ const ReservePage = () => {
       console.log("err입니당~",err)
     }
   }
-
-  console.log(field)
 
   const changeStadiumValue = (e)=>{
     setStadiumValue(e.target.value)
@@ -130,10 +128,10 @@ const ReservePage = () => {
       </div>
       <hr/>
       
-      {field?.map((field,index) =>{
+      {field?.map((field) =>{
         if(field){
           return(
-          <Field fetchField={fetchField}field={field}fieldName={index+1} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
+          <Field fetchField={fetchField}field={field} date={dateValue} startTime={startTimeValue} endTime={endTimeValue}/>)
         }     
         })}
     </div>

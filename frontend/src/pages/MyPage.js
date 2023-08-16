@@ -1,28 +1,60 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../css/pages/MyPage.css'
 import NowBreakdown from '../components/NowBreakdown'
 import FutureBreakdown from '../components/FutureBreakdown'
 import { UserContext } from '../context/UserContext'
+import axios from 'axios'
+import { changeText } from '../helper/ChangeText'
+import profile from '../img/ball.png'
+import { FutureBDContext } from '../context/FutureBreakDownContext'
+import MypageBottom from '../components/MypageBottom'
 
 const MyPage = () => {
 
-  const {accessToken} = useContext(UserContext)
+  const {accessToken,idData} = useContext(UserContext)
+  const [team,setTeam] = useState()
+  const date =  new Date()
+  const year = date.getFullYear()
+  const month = date.getMonth()+1
+  const day = date.getDate()
+  const {futureBD,BDtitle} = useContext(FutureBDContext)
 
+  const teamFetch = async()=>{
+    try{
+      const result = await axios.get(`https://6f2b-121-147-100-85.ngrok-free.app/teams?id=${idData}`,{
+      headers: {
+            'Content-Type': `application/json`,
+            'ngrok-skip-browser-warning': '69420',
+          },
+      })
+      setTeam(result.data)
+    }catch(err){
+      console.log("err입니당~",err)
+    }
+  }
+  useEffect(()=>{
+    teamFetch()
+  },[])
+
+  console.log(team)
 
   return (
+    <>
     <div className='center'>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
       <div className='mypage_top'>
         <div className='mypage_top_left'>
           <div className='icon'><span className="material-symbols-outlined">lock</span> <span className="material-symbols-outlined">edit</span></div>
           <div className='introduce'>
-            <div className='profile'></div>
+            <div className='profile'>
+              <img src={team?.imageUrl?team?.imageUrl:profile} style={{width:'110px',height:'110px',margin:'15px'}} alt='profile'/>
+            </div>
             <ul style={{display:'block'}}>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>팀명</span><span style={{color:'#adadad80'}}>| </span><span>맥시멈스</span></li>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>주장</span><span style={{color:'#adadad80'}}>| </span><span>손흥민</span></li>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>전화번호</span><span style={{color:'#adadad80'}}>| </span><span>010-1234-5678</span></li>
-              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>실력</span><span style={{color:'#adadad80'}}>| </span><span>최상</span></li>
-              <li style={{marginBottom:'3px'}}><span style={{display:'inline-block',width:'70px'}}>매너</span><span style={{color:'#adadad80'}}>| </span><span>최상</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>팀명</span><span style={{color:'#adadad80'}}>| </span><span>{team?.teamName}</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>주장</span><span style={{color:'#adadad80'}}>| </span><span>{team?.captainName}</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>전화번호</span><span style={{color:'#adadad80'}}>| </span><span>{team?.tel}</span></li>
+              <li style={{marginBottom:'5px'}}><span style={{display:'inline-block',width:'70px'}}>실력</span><span style={{color:'#adadad80'}}>| </span><span>{changeText(Number(team?.skill))}</span></li>
+              <li style={{marginBottom:'3px'}}><span style={{display:'inline-block',width:'70px'}}>매너</span><span style={{color:'#adadad80'}}>| </span><span>{changeText(Number(team?.manner))}</span></li>
             </ul>
           </div>
           <div style={{display:'flex',alignItem:'center', fontSize:'1.2rem'}}><span className="material-symbols-outlined">rewarded_ads</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 수상 경력</span></div>
@@ -39,8 +71,68 @@ const MyPage = () => {
             <div style={{display:'flex',alignItem:'center',fontSize:'1.2rem'}}><span class="material-symbols-outlined">indeterminate_check_box</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 현재 매칭 내역</span></div>
             <hr/>
             <ul className='nowbreakdown_list'>
-              <NowBreakdown/>
-              <NowBreakdown/>
+            {team?.matchingRecordList.map((matchingRecord)=>{
+              let matYear = matchingRecord?.field.matchingDate.slice(0,4)
+              let matMonth = matchingRecord?.field.matchingDate.slice(5,7)
+              let matDay = matchingRecord?.field.matchingDate.slice(8,10)
+              if(Number(matYear)<year){
+                //현재 보다 matching년도가 전일때
+              }
+              else if(Number(matYear) === year){
+                //->현재보다 matching월이 전일 때
+                if(Number(matMonth) <month){ 
+                  //->현재와 matching월이 같을 때
+                }
+                else if(Number(matMonth) === month){
+                  //-->>현재보다 matching day가 전일 때
+                  if(Number(matDay)<day){
+                    
+                  }else{
+                    return (<NowBreakdown 
+                      date={matchingRecord?.field.matchingDate} 
+                      stadium={matchingRecord?.field.stadiumName} 
+                      fieldNum={matchingRecord?.field.fieldNum} 
+                      allRental={matchingRecord?.field.allRental}
+                      team={matchingRecord?.field?.team}
+                      startTime={matchingRecord?.field.startTime}
+                      endTime={matchingRecord?.field.endTime}
+                      teamId={team?.id}
+                      matchingId={matchingRecord?.field.matchingId}
+                      teamFetch={teamFetch}
+                      />)
+                  }
+                }
+                //->현재보다 matching월이 빠를 때
+                else{
+                  return (<NowBreakdown 
+                    date={matchingRecord?.field.matchingDate} 
+                    stadium={matchingRecord?.field.stadiumName} 
+                    fieldNum={matchingRecord?.field.fieldNum} 
+                    allRental={matchingRecord?.field.allRental}
+                    team={matchingRecord?.field?.team}
+                    startTime={matchingRecord?.field.startTime}
+                    endTime={matchingRecord?.field.endTime}
+                    teamId={team?.id}
+                    matchingId={matchingRecord?.field.matchingId}
+                    teamFetch={teamFetch}
+                    />)
+                }}
+                //현재보다 mathing 년도가 빠를 때
+              else{
+                return (<NowBreakdown 
+                  date={matchingRecord?.field.matchingDate} 
+                  stadium={matchingRecord?.field.stadiumName} 
+                  fieldNum={matchingRecord?.field.fieldNum} 
+                  allRental={matchingRecord?.field.allRental}
+                  team={matchingRecord?.field?.team}
+                  startTime={matchingRecord?.field.startTime}
+                  endTime={matchingRecord?.field.endTime}
+                  teamId={team?.id}
+                  matchingId={matchingRecord?.field.matchingId}
+                  teamFetch={teamFetch}
+                  />)
+              }
+            })}
             </ul>
           </div>
 
@@ -48,18 +140,70 @@ const MyPage = () => {
             <div style={{display:'flex',alignItem:'center', fontSize:'1.2rem'}}><span class="material-symbols-outlined">select_check_box</span><span style={{fontWeight:'700', marginLeft:'5px'}}> 지난 매칭 내역</span></div>
             <hr/>
             <ul className='futurebreakdown_list'>
-              <FutureBreakdown reserveSort='전체대여' fieldReview={false}/>
-              <FutureBreakdown reserveSort='매칭' fieldReview={true} teamReview={false}/>
-              <FutureBreakdown reserveSort='매칭' fieldReview={false} teamReview={true}/>
-              <FutureBreakdown reserveSort='매칭' fieldReview={true} teamReview={true}/>
+            {team?.matchingRecordList.map((matchingRecord)=>{
+              let matYear = matchingRecord?.field.matchingDate.slice(0,4)
+              let matMonth = matchingRecord?.field.matchingDate.slice(5,7)
+              let matDay = matchingRecord?.field.matchingDate.slice(8,10)
+
+              //현재 보다 matching년도가 전일때
+              if(Number(matYear)<year){
+                return (<FutureBreakdown 
+                  date={matchingRecord?.field.matchingDate} 
+                  stadiumName={matchingRecord?.field.stadiumName} 
+                  stadiumId={matchingRecord?.field.stadiumId} 
+                  fieldNum={matchingRecord?.field.fieldNum} 
+                  allRental={matchingRecord?.field.allRental}
+                  team={matchingRecord?.field?.team}
+                  startTime={matchingRecord?.field.startTime}
+                  endTime={matchingRecord?.field.endTime}
+                  />)}
+
+                //현재랑 matching년도가 같을 때
+              else if(Number(matYear) === year){
+                //->현재보다 matching월이 전일 때
+                if(Number(matMonth) <month){ 
+                  return (<FutureBreakdown 
+                    date={matchingRecord?.field.matchingDate} 
+                    stadiumName={matchingRecord?.field.stadiumName} 
+                    stadiumId={matchingRecord?.field.stadiumId} 
+                    fieldNum={matchingRecord?.field.fieldNum} 
+                    allRental={matchingRecord?.field.allRental}
+                    team={matchingRecord?.field?.team}
+                    startTime={matchingRecord?.field.startTime}
+                    endTime={matchingRecord?.field.endTime}
+                    />)
+                  //->현재와 matching월이 같을 때
+                }else if(Number(matMonth) === month){
+                  //-->>현재보다 matching day가 전일 때
+                  if(Number(matDay)<day){
+                    return (<FutureBreakdown 
+                      date={matchingRecord?.field.matchingDate} 
+                      stadiumName={matchingRecord?.field.stadiumName} 
+                      stadiumId={matchingRecord?.field.stadiumId} 
+                      fieldNum={matchingRecord?.field.fieldNum} 
+                      allRental={matchingRecord?.field.allRental}
+                      team={matchingRecord?.field?.team}
+                      startTime={matchingRecord?.field.startTime}
+                      endTime={matchingRecord?.field.endTime}
+                      />)
+                  }
+                }
+                //->현재보다 matching월이 빠를 때
+                else{
+                  
+              }}
+                //현재보다 mathing 년도가 빠를 때
+              else{
+                
+              }
+            })}
             </ul>
           </div>
       </div>
-      </div>  
-      <div className='mypage_bottom'>
-        <div className='toggle_btn'></div>
       </div>
     </div>
+    <MypageBottom/>
+  </>  
   )
 }
 

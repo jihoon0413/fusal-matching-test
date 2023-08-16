@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import StadiumInfoProvider from './context/StadiumInfoContext';
 import UserProvider from './context/UserContext';
-import FutureBDProvider, { FutureBDContext } from './context/FutureBreakDownContext';
+import FutureBDProvider from './context/FutureBreakDownContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
