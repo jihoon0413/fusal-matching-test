@@ -1046,9 +1046,9 @@ insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stad
 insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (13, 21, false, true);
 insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (6, 42, true, false);
 insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (5, 6, false, false);
-insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values ('aabb', 55, false, false);
+insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values ('aabb', 55, true, false);
 insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values (1, 55, false, false);
-insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values ('aabb', 68, false, false);
+insert into team_matching (team_id, matching_record_id, eval_opposite, eval_stadium) values ('aabb', 68, false, true);
 
 
 

@@ -2,13 +2,14 @@ package com.example.fusalmatching.service;
 
 import com.example.fusalmatching.config.jwt.JwtToken;
 import com.example.fusalmatching.config.jwt.JwtTokenProvider;
-import com.example.fusalmatching.domain.MatchingRecord;
+import com.example.fusalmatching.domain.Field;
 import com.example.fusalmatching.domain.Team;
 import com.example.fusalmatching.domain.TeamMatching;
 import com.example.fusalmatching.domain.TeamReview;
 import com.example.fusalmatching.dto.request.CheckRandomNumDto;
 import com.example.fusalmatching.dto.request.CheckRequestDto;
 import com.example.fusalmatching.dto.request.TeamSignDto;
+import com.example.fusalmatching.dto.response.FieldResponseDto;
 import com.example.fusalmatching.dto.response.TeamResponseDto;
 import com.example.fusalmatching.dto.response.TeamReviewResponseDto;
 import com.example.fusalmatching.repository.MatchingRecordRepository;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -90,22 +92,64 @@ public class TeamService {
     }
 
     @Transactional
-    private List<TeamResponseDto.MatchingRecordDto> getMatchingRecordList(String id) {
+    private List<TeamResponseDto.MatchingRecordListDto> getMatchingRecordList(String id) {
 
         List<TeamMatching> teamMatchingList = teamMatchingRepository.findAllByTeam_Id(id);
 
-        List<TeamResponseDto.MatchingRecordDto> matchingRecordDtoList = new ArrayList<>();
+        List<TeamResponseDto.MatchingRecordListDto> matchingRecordDtoList = new ArrayList<>();
 
 
-
-        for(int i = 0 ; i < teamMatchingList.size() ; i++) {
-            var matchingRecordDto = new TeamResponseDto.MatchingRecordDto();
-//            Optional<MatchingRecord> matchingRecord1 = matchingRecordRepository.findById(teamMatchingList.get(i).getMatchingRecord().getId());
-//            MatchingRecord  matchingRecord = matchingRecord1.get();
-            matchingRecordDto.setField(stadiumService.getFieldResponseDto(teamMatchingList.get(i).getMatchingRecord().getField(), teamMatchingList.get(i).getMatchingRecord().getId()));
+        for (TeamMatching teamMatching : teamMatchingList) {
+            var matchingRecordDto = new TeamResponseDto.MatchingRecordListDto();
+            matchingRecordDto.setMatchingRecord(getMatchingRecordDto(teamMatching.getMatchingRecord().getField(), teamMatching.getMatchingRecord().getId(), id));
             matchingRecordDtoList.add(matchingRecordDto);
         }
         return matchingRecordDtoList;
+    }
+
+
+    public TeamResponseDto.MatchingRecordDto getMatchingRecordDto(Field field, Long matchingId, String id) {
+
+
+        var dto =new TeamResponseDto.MatchingRecordDto();
+        dto.setId(field.getId());
+        dto.setStadiumId(field.getStadium().getId());
+        dto.setStadiumName(field.getStadium().getStadiumName());
+        dto.setMatchingDate(String.valueOf(field.getMatchingDate()));
+        dto.setStartTime(String.valueOf(field.getStartTime()));
+        dto.setEndTime(String.valueOf(field.getEndTime()));
+        dto.setFieldNum(field.getFieldNum());
+        dto.setMatchingId(matchingId);
+        dto.setConfirm(matchingRecordRepository.findById(matchingId).get().isConfirm());
+        dto.setAllRental(matchingRecordRepository.findById(matchingId).get().isAllRental());
+
+        List<FieldResponseDto.TeamDto> teams = new ArrayList<>();
+        List<TeamMatching> teamMatching1 = teamMatchingRepository.findAllByMatchingRecord_Id(matchingId);
+
+        for (TeamMatching teamMatching : teamMatching1) {
+            if (Objects.equals(id, teamMatching.getTeam().getId())) {
+                TeamResponseDto.MyTeamDto myTeamDto = new TeamResponseDto.MyTeamDto();
+                myTeamDto.setId(teamMatching.getTeam().getId());
+                myTeamDto.setTeamMatchingId(teamMatching.getId());
+                myTeamDto.setEvalOpposite(teamMatching.isEvalOpposite());
+                myTeamDto.setEvalStadium(teamMatching.isEvalStadium());
+
+                dto.setMyTeamDto(myTeamDto);
+            } else {
+                TeamResponseDto.OppositeTeamDto oppositeTeamDto = new TeamResponseDto.OppositeTeamDto();
+                oppositeTeamDto.setId(teamMatching.getTeam().getId());
+                oppositeTeamDto.setTeamName(teamMatching.getTeam().getTeamName());
+                oppositeTeamDto.setImageUrl(teamMatching.getTeam().getImgUrl());
+                oppositeTeamDto.setManner(teamMatching.getTeam().getManner());
+                oppositeTeamDto.setSkill(teamMatching.getTeam().getSkill());
+                dto.setOppositeTeamDto(oppositeTeamDto);
+            }
+
+            //            teams.add(setTeamDto(teamMatching1.get(i)));
+        }
+
+
+        return dto;
     }
 
 

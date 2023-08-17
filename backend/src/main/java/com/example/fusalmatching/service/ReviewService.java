@@ -33,6 +33,7 @@ public class ReviewService {
         Optional<Team> team = teamRepository.findById(teamReviewWriteRequestDto.getOppositeTeamId());
 
         TeamReview teamReview = TeamReview.of(team.get(), teamReviewWriteRequestDto.getManner(), teamReviewWriteRequestDto.getSkill());
+        teamReview.setCreatedBy(teamMatching.getTeam().getId());
 
         teamReviewRepository.save(teamReview);
     }
@@ -48,6 +49,7 @@ public class ReviewService {
         Optional<Stadium> stadium = stadiumRepository.findById(stadiumReviewWriteRequestDto.getStadiumId());
 
         StadiumReview stadiumReview = StadiumReview.of(stadium.get(), stadiumReviewWriteRequestDto.getGpa(), stadiumReviewWriteRequestDto.getReview());
+        stadiumReview.setCreatedBy(teamMatching.getTeam().getId());
 
         stadiumReviewRepository.save(stadiumReview);
     }
