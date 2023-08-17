@@ -49,6 +49,7 @@ public class ReviewService {
         Optional<Stadium> stadium = stadiumRepository.findById(stadiumReviewWriteRequestDto.getStadiumId());
 
         StadiumReview stadiumReview = StadiumReview.of(stadium.get(), stadiumReviewWriteRequestDto.getGpa(), stadiumReviewWriteRequestDto.getReview());
+        stadiumReview.setCreatedBy(teamMatching.getTeam().getId());
 
         stadiumReviewRepository.save(stadiumReview);
     }
