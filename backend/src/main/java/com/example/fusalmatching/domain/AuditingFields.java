@@ -1,6 +1,7 @@
 package com.example.fusalmatching.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,6 +27,7 @@ public class AuditingFields {
     private LocalDateTime createdAt;
 
     @CreatedBy
+    @Setter
     @Column(nullable = true, updatable = false)
     private String createdBy;
 

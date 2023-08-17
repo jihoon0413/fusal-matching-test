@@ -33,6 +33,7 @@ public class ReviewService {
         Optional<Team> team = teamRepository.findById(teamReviewWriteRequestDto.getOppositeTeamId());
 
         TeamReview teamReview = TeamReview.of(team.get(), teamReviewWriteRequestDto.getManner(), teamReviewWriteRequestDto.getSkill());
+        teamReview.setCreatedBy(teamMatching.getTeam().getId());
 
         teamReviewRepository.save(teamReview);
     }
