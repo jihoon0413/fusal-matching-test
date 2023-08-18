@@ -8,6 +8,7 @@ import ReservePage from './pages/ReservePage';
 import MyPage from './pages/MyPage';
 import LoginPage from './pages/LoginPage';
 import MembershipPage from './pages/MembershipPage';
+import FindPage from './pages/FindPage';
 
 
 const Layout =()=>{
@@ -29,6 +30,7 @@ function App() {
           <Route path='/mypage' element={<MyPage/>}/>
           <Route path='/login' element={<LoginPage/>}/>
           <Route path='/membership' element={<MembershipPage/>}/>
+          <Route path='/pwfind' element={<FindPage/>}/>
         </Route>
       </Routes>
     </div>

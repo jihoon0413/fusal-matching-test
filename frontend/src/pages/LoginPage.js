@@ -71,7 +71,7 @@ const LoginPage = () => {
           <div>
             <button className='btn_make'><Link to='/membership' style={{color:"blue"}}>회원가입</Link></button>
             <span>/</span>
-            <button className='btn_find'>비밀번호 찾기</button>
+            <button className='btn_find'><Link to='/pwfind' style={{color:"blue"}}>비밀번호 찾기</Link></button>
           </div>
           <div className='login_err' style={{visibility:`${hidden}`}}>아이디 또는 비밀번호를 잘못 입력했습니다.</div>
           <button className='btn_login' onClick={fetchLogin}>로그인</button>

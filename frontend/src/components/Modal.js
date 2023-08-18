@@ -13,7 +13,6 @@ const Modal = ({fetchField,field, fieldName , endTime, startTime, date, setModal
   const [display,setDisplay] = useState("block")
   const navigate = useNavigate()
 
-  console.log(fetchField)
   let allRental
     if(reserveSort === '전체 대여'){
       allRental = true

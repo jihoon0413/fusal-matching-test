@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import '../css/components/FutureBreakdown.css'
 import { FutureBDContext } from "../context/FutureBreakDownContext"
 
-const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,startTime,endTime}) => {
+const FutureBreakdown = ({myteam,oppositeTeam,date,stadiumName, stadiumId,fieldNum,allRental,startTime,endTime}) => {
 
   const [fieldReveiwBtnBack, setFieldReiviewBtnBack] = useState('')
   const [teamReveiwBtnBack, setTeamReiviewBtnBack] = useState('')
@@ -12,7 +12,7 @@ const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,st
   const {setBDTitle,setFutureBD,setMatchingId,setOppositeTeam,setStadium,setEvalOpposite,setEvalStadium} = useContext(FutureBDContext)
 
   useEffect(()=>{
-    if(team[0]?.evalStadium){
+    if(myteam?.evalStadium){
       // 필드 리뷰가 있을때
       setFieldReiviewBtnBack('white')
       setFieldReviewBtnText('#4287EE')
@@ -21,7 +21,7 @@ const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,st
       setFieldReviewBtnText('white')
     }
 
-    if(team[0]?.evalOpposite){
+    if(myteam?.evalOpposite){
       // 팀 리뷰가 있을때
       setTeamReiviewBtnBack('white')
       setTeamReviewBtnText('#4287EE')
@@ -36,14 +36,14 @@ const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,st
     setBDTitle(
       `${allRental
         ?`[ 전체 대여 ]`
-        :`${date} ${stadiumName} - ${fieldNum}구장 [ vs ${team[1]?.teamName}] ${startTime.slice(0,5)} ~ ${endTime.slice(0,5)}`
+        :`${date} ${stadiumName} - ${fieldNum}구장 [ vs ${oppositeTeam?.teamName}] ${startTime.slice(0,5)} ~ ${endTime.slice(0,5)}`
         }`
     )
-    setMatchingId(team[0]?.teamMatchingId)
+    setMatchingId(myteam?.teamMatchingId)
     setStadium(stadiumId)
-    setOppositeTeam(team[1]?.id)
-    setEvalOpposite(team[0]?.evalOpposite)
-    setEvalStadium(team[0]?.evalStadium)
+    setOppositeTeam(myteam?.id)
+    setEvalOpposite(myteam?.evalOpposite)
+    setEvalStadium(myteam?.evalStadium)
   }
 
   return (
@@ -52,7 +52,7 @@ const FutureBreakdown = ({team,date,stadiumName, stadiumId,fieldNum,allRental,st
       {stadiumName} - {fieldNum}구장 
       {allRental
       ?`[ 전체 대여 ]`
-      :<>[ vs {team[1]?team[1].teamName:<span style={{fontWeight:'700',color:'red'}}> ? </span>}] </>
+      :<>[ vs {oppositeTeam?oppositeTeam.teamName:<span style={{fontWeight:'700',color:'red'}}> ? </span>}] </>
       }
       {startTime.slice(0,5)} ~ {endTime.slice(0,5)}
       {(allRental ===true)
