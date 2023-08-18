@@ -72,9 +72,10 @@ const MyPage = () => {
             <hr/>
             <ul className='nowbreakdown_list'>
             {team?.matchingRecordList.map((matchingRecord)=>{
-              let matYear = matchingRecord?.field.matchingDate.slice(0,4)
-              let matMonth = matchingRecord?.field.matchingDate.slice(5,7)
-              let matDay = matchingRecord?.field.matchingDate.slice(8,10)
+              matchingRecord = matchingRecord.matchingRecord
+              let matYear = matchingRecord?.matchingDate?.slice(0,4)
+              let matMonth = matchingRecord?.matchingDate?.slice(5,7)
+              let matDay = matchingRecord?.matchingDate?.slice(8,10)
               if(Number(matYear)<year){
                 //현재 보다 matching년도가 전일때
               }
@@ -89,15 +90,16 @@ const MyPage = () => {
                     
                   }else{
                     return (<NowBreakdown 
-                      date={matchingRecord?.field.matchingDate} 
-                      stadium={matchingRecord?.field.stadiumName} 
-                      fieldNum={matchingRecord?.field.fieldNum} 
-                      allRental={matchingRecord?.field.allRental}
-                      team={matchingRecord?.field?.team}
-                      startTime={matchingRecord?.field.startTime}
-                      endTime={matchingRecord?.field.endTime}
+                      date={matchingRecord?.matchingDate} 
+                      stadium={matchingRecord?.stadiumName} 
+                      fieldNum={matchingRecord?.fieldNum} 
+                      allRental={matchingRecord?.allRental}
+                      myteam={matchingRecord?.myTeamDto}
+                      oppositeTeam={matchingRecord?.oppositeTeamDto}
+                      startTime={matchingRecord?.startTime}
+                      endTime={matchingRecord?.endTime}
                       teamId={team?.id}
-                      matchingId={matchingRecord?.field.matchingId}
+                      matchingId={matchingRecord?.matchingId}
                       teamFetch={teamFetch}
                       />)
                   }
@@ -105,30 +107,32 @@ const MyPage = () => {
                 //->현재보다 matching월이 빠를 때
                 else{
                   return (<NowBreakdown 
-                    date={matchingRecord?.field.matchingDate} 
-                    stadium={matchingRecord?.field.stadiumName} 
-                    fieldNum={matchingRecord?.field.fieldNum} 
-                    allRental={matchingRecord?.field.allRental}
-                    team={matchingRecord?.field?.team}
-                    startTime={matchingRecord?.field.startTime}
-                    endTime={matchingRecord?.field.endTime}
+                    date={matchingRecord?.matchingDate} 
+                    stadium={matchingRecord?.stadiumName} 
+                    fieldNum={matchingRecord?.fieldNum} 
+                    allRental={matchingRecord?.allRental}
+                    myteam={matchingRecord?.myTeamDto}
+                    oppositeTeam={matchingRecord?.oppositeTeamDto}
+                    startTime={matchingRecord?.startTime}
+                    endTime={matchingRecord?.endTime}
                     teamId={team?.id}
-                    matchingId={matchingRecord?.field.matchingId}
+                    matchingId={matchingRecord?.matchingId}
                     teamFetch={teamFetch}
                     />)
                 }}
                 //현재보다 mathing 년도가 빠를 때
               else{
                 return (<NowBreakdown 
-                  date={matchingRecord?.field.matchingDate} 
-                  stadium={matchingRecord?.field.stadiumName} 
-                  fieldNum={matchingRecord?.field.fieldNum} 
-                  allRental={matchingRecord?.field.allRental}
-                  team={matchingRecord?.field?.team}
-                  startTime={matchingRecord?.field.startTime}
-                  endTime={matchingRecord?.field.endTime}
+                  date={matchingRecord?.matchingDate} 
+                  stadium={matchingRecord?.stadiumName} 
+                  fieldNum={matchingRecord?.fieldNum} 
+                  allRental={matchingRecord?.allRental}
+                  myteam={matchingRecord?.myTeamDto}
+                  oppositeTeam={matchingRecord?.oppositeTeamDto}
+                  startTime={matchingRecord?.startTime}
+                  endTime={matchingRecord?.endTime}
                   teamId={team?.id}
-                  matchingId={matchingRecord?.field.matchingId}
+                  matchingId={matchingRecord?.matchingId}
                   teamFetch={teamFetch}
                   />)
               }
@@ -141,21 +145,23 @@ const MyPage = () => {
             <hr/>
             <ul className='futurebreakdown_list'>
             {team?.matchingRecordList.map((matchingRecord)=>{
-              let matYear = matchingRecord?.field.matchingDate.slice(0,4)
-              let matMonth = matchingRecord?.field.matchingDate.slice(5,7)
-              let matDay = matchingRecord?.field.matchingDate.slice(8,10)
+               matchingRecord = matchingRecord.matchingRecord
+              let matYear = matchingRecord?.matchingDate?.slice(0,4)
+              let matMonth = matchingRecord?.matchingDate?.slice(5,7)
+              let matDay = matchingRecord?.matchingDate?.slice(8,10)
 
               //현재 보다 matching년도가 전일때
               if(Number(matYear)<year){
                 return (<FutureBreakdown 
-                  date={matchingRecord?.field.matchingDate} 
-                  stadiumName={matchingRecord?.field.stadiumName} 
-                  stadiumId={matchingRecord?.field.stadiumId} 
-                  fieldNum={matchingRecord?.field.fieldNum} 
-                  allRental={matchingRecord?.field.allRental}
-                  team={matchingRecord?.field?.team}
-                  startTime={matchingRecord?.field.startTime}
-                  endTime={matchingRecord?.field.endTime}
+                  date={matchingRecord?.matchingDate} 
+                  stadiumName={matchingRecord?.stadiumName} 
+                  stadiumId={matchingRecord?.stadiumId} 
+                  fieldNum={matchingRecord?.fieldNum} 
+                  allRental={matchingRecord?.allRental}
+                  myteam={matchingRecord?.myTeamDto}
+                  oppositeTeam={matchingRecord?.oppositeTeamDto}
+                  startTime={matchingRecord?.startTime}
+                  endTime={matchingRecord?.endTime}
                   />)}
 
                 //현재랑 matching년도가 같을 때
@@ -163,28 +169,30 @@ const MyPage = () => {
                 //->현재보다 matching월이 전일 때
                 if(Number(matMonth) <month){ 
                   return (<FutureBreakdown 
-                    date={matchingRecord?.field.matchingDate} 
-                    stadiumName={matchingRecord?.field.stadiumName} 
-                    stadiumId={matchingRecord?.field.stadiumId} 
-                    fieldNum={matchingRecord?.field.fieldNum} 
-                    allRental={matchingRecord?.field.allRental}
-                    team={matchingRecord?.field?.team}
-                    startTime={matchingRecord?.field.startTime}
-                    endTime={matchingRecord?.field.endTime}
+                    date={matchingRecord?.matchingDate} 
+                    stadiumName={matchingRecord?.stadiumName} 
+                    stadiumId={matchingRecord?.stadiumId} 
+                    fieldNum={matchingRecord?.fieldNum} 
+                    allRental={matchingRecord?.allRental}
+                    myteam={matchingRecord?.myTeamDto}
+                    oppositeTeam={matchingRecord?.oppositeTeamDto}
+                    startTime={matchingRecord?.startTime}
+                    endTime={matchingRecord?.endTime}
                     />)
                   //->현재와 matching월이 같을 때
                 }else if(Number(matMonth) === month){
                   //-->>현재보다 matching day가 전일 때
                   if(Number(matDay)<day){
                     return (<FutureBreakdown 
-                      date={matchingRecord?.field.matchingDate} 
-                      stadiumName={matchingRecord?.field.stadiumName} 
-                      stadiumId={matchingRecord?.field.stadiumId} 
-                      fieldNum={matchingRecord?.field.fieldNum} 
-                      allRental={matchingRecord?.field.allRental}
-                      team={matchingRecord?.field?.team}
-                      startTime={matchingRecord?.field.startTime}
-                      endTime={matchingRecord?.field.endTime}
+                      date={matchingRecord?.matchingDate} 
+                      stadiumName={matchingRecord?.stadiumName} 
+                      stadiumId={matchingRecord?.stadiumId} 
+                      fieldNum={matchingRecord?.fieldNum} 
+                      allRental={matchingRecord?.allRental}
+                      myteam={matchingRecord?.myTeamDto}
+                      oppositeTeam={matchingRecord?.oppositeTeamDto}
+                      startTime={matchingRecord?.startTime}
+                      endTime={matchingRecord?.endTime}
                       />)
                   }
                 }

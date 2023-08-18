@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 
 
-const NowBreakdown = ({teamFetch,teamId,matchingId,team,date,stadium,fieldNum,allRental,startTime,endTime}) => {
+const NowBreakdown = ({myteam,oppositeTeam,teamFetch,teamId,matchingId,date,stadium,fieldNum,allRental,startTime,endTime}) => {
 
 const cancelFetch = async()=>{
 
@@ -31,7 +31,7 @@ const cancelFetch = async()=>{
       {allRental
       ?`[ 전체 대여 ]`
       :<>
-      [ vs {team[1]?team[1].teamName:<span style={{fontWeight:'700',color:'red'}}> ? </span>}] </>
+      [ vs {oppositeTeam?oppositeTeam.teamName:<span style={{fontWeight:'700',color:'red'}}> ? </span>}] </>
       }
       {startTime.slice(0,5)} ~ {endTime.slice(0,5)}
       <button style={{color:'orange',border:'1px solid orange',backgroundColor:'white', margin:'0 5px 0 5px'}}>대기 중</button>
