@@ -46,9 +46,9 @@ public class TeamService {
 
     @Transactional
     public void createTeam(TeamSignDto teamSignDto) {
-
-//        String hashedPassword = passwordEncoder.encode(password);           //TODO: 아이디, 닉네임 중복확인 해야함
-        Team newTeam = Team.of(teamSignDto.getId(), teamSignDto.getTeamName(), teamSignDto.getPassword(), teamSignDto.getCaptainName(), teamSignDto.getTel(), teamSignDto.getEmail());
+        
+        String hashedPassword = passwordEncoder.encode(teamSignDto.getPassword());           //TODO: 아이디, 닉네임 중복확인 해야함
+        Team newTeam = Team.of(teamSignDto.getId(), teamSignDto.getTeamName(), hashedPassword, teamSignDto.getCaptainName(), teamSignDto.getTel(), teamSignDto.getEmail());
         teamRepository.save(newTeam);
 
     }
