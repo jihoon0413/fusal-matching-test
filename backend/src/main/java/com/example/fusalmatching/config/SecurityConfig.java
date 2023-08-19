@@ -2,9 +2,12 @@ package com.example.fusalmatching.config;
 
 import com.example.fusalmatching.config.jwt.JwtAuthenticationFilter;
 import com.example.fusalmatching.config.jwt.JwtTokenProvider;
+import com.example.fusalmatching.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -41,7 +44,7 @@ public class SecurityConfig {
                 .antMatchers("/teams/**").permitAll()
                 .antMatchers("/review/**").permitAll()
                 .antMatchers("/matching/**").permitAll() //나중에 없애야함 개발의 편의를 위해 설정
-//                .antMatchers("/teams/test").hasRole("[USER]")
+                .antMatchers("/teams/test").hasRole("[USER]")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
@@ -59,8 +62,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(passwordEncoder)
+//                .withUser("666")
+//                .password("$2a$10$Fx0OPnvZv1wN2njYdcY0gOV6nUgqdTgfUVIBtm.ncbyOX4dWp8FN.")
+//                .roles("USER");
+        auth.userDetailsService(customUserDetailsService);
+
     }
 
 }
