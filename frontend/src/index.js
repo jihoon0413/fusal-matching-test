@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import StadiumInfoProvider from './context/StadiumInfoContext';
 import UserProvider from './context/UserContext';
+import FutureBDProvider from './context/FutureBreakDownContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
   <StadiumInfoProvider>
     <UserProvider>
-      <App />
+      <FutureBDProvider>
+        <App />
+      </FutureBDProvider>
     </UserProvider>
   </StadiumInfoProvider>
   </BrowserRouter>

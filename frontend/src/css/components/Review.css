@@ -5,3 +5,12 @@
 .review_content{
   max-width:400px;
 }
+.reviews{
+  height:150px;
+  overflow-y:scroll;
+  /* scrollbar-width:none; */
+  margin-left:20px;
+}
+/* ::-webkit-scrollbar{
+  display:none;
+} */

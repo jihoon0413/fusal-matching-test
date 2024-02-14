@@ -1,18 +1,24 @@
-.loginbox{
+.findbox{
   margin:200px auto;
-  width:600px;
-  height:300px;
+  width:750px;
+  min-height:500px;
   border:1px solid rgba(128, 128, 128, 0.397);
   border-top:none;
   border-radius: 20px;
 }
-.login_ment{
+.find_ment{
   font-weight:600;
   color:white;
   text-align: center;
   padding:10px;
-  background-color:#EE4242;
+  background-color:#FFB02E;
   border-radius:20px 20px 0 0;
+}
+.find_ment2{
+  font-weight:600;
+  color:#8E8E8E;
+  text-align: center;
+  margin:50px 0;
 }
 input{
   padding-left:15px;
@@ -23,39 +29,32 @@ input{
   border-radius:10px;
   border:1px solid rgba(128, 128, 128, 0.397);
 }
-.login_input{
+.find_input{
   margin-top:30px;
   display:flex;
   flex-direction: column;
   align-items: center;
   gap:15px;
 }
-.btn_make{
-  margin-left:350px;
-  background-color: transparent;
-  color:blue;
-}
-.btn_find{
-  width:100px;
-  background-color: transparent;
-  color:blue;
-}
-.btn_make:hover,
-.btn_find:hover{
-  text-decoration:underline;
-  color:rgb(44, 44, 243);
-}
-.btn_login{
+
+.btn_find_ok{
   display:block;
-  width:90px;
+  width:65px;
+  height:30px;
+  color:white;
+  font-weight:600;
+  background-color: #FFB02E;
+  margin:20px auto;
+  position:absolute;
+  right:-70px;
+}
+.btn_find_next{
+  width:80px;
   height:40px;
   color:white;
   font-weight:600;
-  background-color: #EE4242;
-  margin:20px auto;
+  background-color: #FFB02E;
 }
-.login_err{
-  font-size:14px;
-  color:#EE4242;
-  text-align: center;
+.btn_find_next:disabled{
+  background-color: #ffaf2e68;
 }
