@@ -1,35 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import InfoList from '../components/InfoList'
-import '../css/pages/ListPage.css'
-import axios from 'axios'
-
+import React, { useEffect, useState } from "react";
+import InfoList from "../components/InfoList";
+import "../css/pages/ListPage.css";
+import { apiGet } from "../helper/api";
 
 const ListPage = () => {
-
-  const [stadiums,setStadiums] = useState(null) 
-  useEffect(()=>{
-    const fetchStadiums = async()=>{
-      try{
-        const result = await axios.get("https://6f2b-121-147-100-85.ngrok-free.app/stadiums",{
-        headers: {
-              'Content-Type': `application/json`,
-              'ngrok-skip-browser-warning': '69420',
-            },
-        })
-        setStadiums(result.data)
-      }catch(err){
-        console.log("err입니당~",err)
-      }
-    }
-    fetchStadiums()
-    
-  },[])
+  const [stadiums, setStadiums] = useState(null);
+  const fetchStadiums = () => {
+    const data = apiGet("/stadiums");
+    setStadiums(data);
+  };
+  useEffect(() => {
+    fetchStadiums();
+    // const fetchStadiums = async()=>{
+    //   try{
+    //     const result = await axios.get("https://6f2b-121-147-100-85.ngrok-free.app/stadiums",{
+    //     headers: {
+    //           'Content-Type': `application/json`,
+    //           'ngrok-skip-browser-warning': '69420',
+    //         },
+    //     })
+    //     setStadiums(result.data)
+    //   }catch(err){
+    //     console.log("err입니당~",err)
+    //   }
+    // }
+  }, []);
 
   return (
-    <div className='center'>
+    <div className="center">
       <div>구장의 자세한 정보가 궁금하다면? click !</div>
-      {stadiums?.map(stadium =>(
-        <InfoList 
+      {stadiums?.map((stadium) => (
+        <InfoList
           key={stadium.id}
           images={stadium.images}
           norest={stadium.norest}
@@ -43,9 +44,8 @@ const ListPage = () => {
           price={stadium.cost}
         />
       ))}
-
     </div>
-  )
-}
+  );
+};
 
-export default ListPage
+export default ListPage;
