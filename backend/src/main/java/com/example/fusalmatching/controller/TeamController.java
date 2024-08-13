@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,9 +22,9 @@ public class TeamController {
     private final MailService mailService;
 
     @GetMapping
-    public TeamResponseDto getTeamList(@RequestParam String id) {
+    public TeamResponseDto getMyPage(@RequestParam String id) {
 
-        return teamService.getTeam(id);
+        return teamService.getMyPage(id);
     }
 
     @GetMapping("/reviews")
@@ -33,10 +33,13 @@ public class TeamController {
     }
 
     @PostMapping("/new")
-    public void createTeam(@RequestBody TeamSignDto teamSignDto) {
-
+    public void createTeam(@RequestBody TeamSignRequestDto teamSignDto) throws Exception {
         teamService.createTeam(teamSignDto);
+    }
 
+    @PostMapping("/modifyProfile")
+    public void modifyTeam(@RequestBody TeamModifyProfileRequestDto teamSignDto) {
+        teamService.modifyTeam(teamSignDto);
     }
 
     @PostMapping("/check-id")
@@ -50,15 +53,15 @@ public class TeamController {
     }
 
     @PostMapping("/login")
-    public JwtToken login(@RequestBody TeamLoginRequestDto teamLoginRequestDto) {
-        String id = teamLoginRequestDto.getId();
-        String password = teamLoginRequestDto.getPassword();
+    public JwtToken login(@RequestBody LoginRequestDto loginRequestDto) {
+        String id = loginRequestDto.getId();
+        String password = loginRequestDto.getPassword();
 
         return teamService.login(id,password);
     }
 
     @PostMapping("/send-email")
-    public String sendEmail(@RequestBody MailDto mailDto) throws MessagingException, IOException {
+    public String sendEmail(@RequestBody MailDto mailDto) throws MessagingException, InvalidPropertiesFormatException {
         return mailService.sendMail(mailDto);
     }
 
@@ -71,7 +74,6 @@ public class TeamController {
     public void test() {
         System.out.println("==========================>>>>>>>>>>>>> 인증 성공");
     }
-
 
 
 
