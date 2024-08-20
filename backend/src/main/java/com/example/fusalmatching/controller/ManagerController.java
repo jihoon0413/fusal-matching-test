@@ -4,7 +4,6 @@ import com.example.fusalmatching.config.jwt.JwtToken;
 import com.example.fusalmatching.dto.request.LoginRequestDto;
 import com.example.fusalmatching.dto.request.ManagerSignRequestDto;
 import com.example.fusalmatching.dto.response.ManagerResponseDto;
-import com.example.fusalmatching.dto.response.TeamResponseDto;
 import com.example.fusalmatching.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
