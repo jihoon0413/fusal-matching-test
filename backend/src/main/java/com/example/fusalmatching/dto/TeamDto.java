@@ -18,8 +18,18 @@ public record TeamDto(
         return new TeamDto(id, password,teamName,captainName,tel,email,imgUrl,manner,skill);
     }
 
-    public static TeamDto from(Team team) {
-        return new
+    public static TeamDto from(Team entity) {
+        return new TeamDto(
+                entity.getId(),
+                entity.getPassword(),
+                entity.getTeamName(),
+                entity.getCaptainName(),
+                entity.getTel(),
+                entity.getEmail(),
+                entity.getImgUrl(),
+                entity.getManner(),
+                entity.getSkill()
+        );
     }
 
     public Team toEntity() {
